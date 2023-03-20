@@ -8356,9 +8356,9 @@ fieldset:disabled .btn {
 .bg-opacity-100 {
     --bs-bg-opacity: 1;
 }
-.bg-gradient {
+/* .bg-gradient {
     background-image: var(--bs-gradient) !important;
-}
+} */
 .user-select-all {
     -webkit-user-select: all !important;
     -moz-user-select: all !important;
@@ -19158,3 +19158,7 @@ a.side-nav-link.active {
 .btn-sm .dropdown-toggle {
     padding: 5px 20px !important;
 }
+
+/* .bg-gray-100{
+    background-color: #c6e9c4 !important;
+} */
