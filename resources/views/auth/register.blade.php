@@ -6,6 +6,8 @@
 
         <x-validation-errors class="mb-4" />
 
+        <h1 class="text-center" style="font-size: 32px;font-family:Figtree, ui-sans-serif;color:rgb(121, 121, 121)">{{ __('msg.register_your_account') }}</h1>
+
         <form method="POST" action="{{ route('register') }}">
             @csrf
 

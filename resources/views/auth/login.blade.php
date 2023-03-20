@@ -12,6 +12,8 @@
             </div>
         @endif
 
+        <h1 class="text-center" style="font-size: 32px;font-family:Figtree, ui-sans-serif;color:rgb(121, 121, 121)">{{ __('msg.login_your_account') }}</h1>
+
         <form method="POST" action="{{ route('login') }}">
             @csrf
 

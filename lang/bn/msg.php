@@ -236,6 +236,7 @@ return [
     #k
 
     #l
+    'login_your_account'            =>  'আপনার অ্যাকাউন্টে লগইন করুন ',
     'list'                          =>  'তালিকা ',
     'leave_without_pay'             =>  'বিনা বেতনে ছুটি ',
     'leave'                         =>  'ছুটি ',
@@ -369,6 +370,7 @@ return [
     'qty'                           =>  'পরিমান ',
     
     #r
+    'register_your_account'         =>  'একটি অ্যাকাউন্ট নিবন্ধন করুন ',
     'registration_no'               =>  'রেজিস্টার নম্বর ',
     'register'                      =>  'রেজিস্টার ',
     'report_generating_info'        =>  ':form থেকে :to এর রিপোর্ট দেখানো হচ্ছে। :today তারিখে তৈরি হয়েছে। ',

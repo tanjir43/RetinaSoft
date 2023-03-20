@@ -241,6 +241,7 @@ return [
     #k
 
     #l
+    'login_your_account'            =>  'Login Your Account ',
     'list'                          =>  'List ',
     'leave_without_pay'             =>  'Leave Without Pay ',
     'leave'                         =>  'Leave ',
@@ -376,7 +377,8 @@ return [
     'qr'                            =>  'QR ',
     'qty'                           =>  'Qty ',
     
-    #r
+    
+    'register_your_account'         =>  'Register ',
     'registration_no'               =>  'Registration No ',
     'register'                      =>  'Register',
     'report_generating_info'        =>  'Showing reports from :form to :to. Created on :today.',
