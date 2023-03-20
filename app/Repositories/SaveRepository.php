@@ -1,8 +1,8 @@
 <?php
 namespace App\Repositories;
 
+use App\Models\Company;
 use App\Models\Media;
-use App\Models\organization\Organization;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,22 +27,14 @@ class SaveRepository {
         return $info->id;
     }
 
-    public function Organization(Request $request,$id)
+    public function Company(Request $request,$id)
     {
-        dd($request->hasFile('file'));
         $created_by = Auth::user()->id;
 
-        if($request->hasFile('file')) {
-            $media_id = $this->uploadFile($request);
-        }
-
         if (!empty($id)) {
-            $info = Organization::find($id);
+            $info = Company::find($id);
 
             if (!empty($info)){
-                if($request->hasFile('file')) {
-                    $info->media_id     = $media_id;
-                }
                 $info->name             =   $request->name;
                 $info->name_l           =   $request->name_l;
                 $info->address          =   $request->address;
@@ -85,13 +77,10 @@ class SaveRepository {
             'registration_no'       => $request->registration_no,
             'created_by'            => $created_by,
         ];
-        if ($request->hasFile('file')) {
-            $data['media_id']   = $media_id;
-        }
 
         DB::beginTransaction();
         try {
-            Organization::create($data);
+            Company::create($data);
             DB::commit();
             return 'success';
         } catch (Exception $e) {

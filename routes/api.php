@@ -31,15 +31,15 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','B
         }
     })->name('dashboard');
 
-    Route::get('/organization','company\OrganizationController@index')->name('organization');
-    Route::post('/organization-save','company\OrganizationController@save')->name('organization.save');
+    #company
+    Route::get('/company','company\CompanyController@index')->name('company');
+    Route::post('/company-save','company\CompanyController@save')->name('company.save');
+    Route::get('company-datatable', 'company\CompanyController@datatable')->name('company.datatable');
+
+    
     Route::get('/branch', function () {
         return "branch";
     })->name('branch');
-
-    Route::get('/company', function () {
-        return "company";
-    })->name('company');
 
     Route::get('/branch-counter', function () {
         return "Branch counter";

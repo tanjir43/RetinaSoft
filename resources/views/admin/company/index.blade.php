@@ -8,13 +8,29 @@
 @section('content')
     <div class="row">
         <div class="col-sm-12 col-md-8">
-            Hello
+            <x-card variant="primary" outline="true" title="{!! __('msg.company').' '.__('msg.list') !!}">
+                <x-slot name="body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="company_table" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%">{{ __('msg.name') }}</th>
+                                    <th class="text-center" style="width: 25%">{{ __('msg.information') }}</th>
+                                    <th class="text-center" style="width:10%">{{ __('msg.status') }}</th>
+                                    <th class="text-center" style="width: 20%">{{ __('msg.created_at') }}</th>
+                                    <th style="text-align: right;width: 20%">{{ __('msg.action') }}</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </x-slot>
+            </x-card>
         </div>
    
         <div class="col-sm-12 col-md-4">
-            <x-form route="organization.save" :update="$record->id ?? null">
+            <x-form route="company.save" :update="$record->id ?? null">
                 <x-slot name="body">
-                    <x-card variant="primary"  title="{{__('msg.organizations').' '.__('msg.information')}}">
+                    <x-card variant="primary"  title="{{__('msg.company').' '.__('msg.information')}}">
                         <x-slot name="body">
                             <div class="form-group">
                                 <?php
@@ -162,18 +178,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="picture"> {{ __('msg.picture') }} </label>
-                                @if (!empty($record->media))
-                                    <p>
-                                        <img src="{{$record->media->attachment}}" class="img-thumbnail">
-                                        <a href="#" class="btn btn-danger btn-sm">{{ __('msg.delete') }}</a>
-                                    </p>
-                                @endif
-                                <input type="file" class="d-block form-control" name="file">
-                            </div>
-
-
                             <x-slot name="footer">
                                 {!! Form::submit(__('msg.save'),["class"=>"btn btn-success float-right"]) !!}
                             </x-slot>
@@ -198,6 +202,27 @@
             ['style', ['bold']],
             ['font', [ 'fontname','fontsize']],
         ]
+    });
+</script>
+
+<script>
+    $(function() {
+        window.LaravelDataTables=window.LaravelDataTables||{};
+        window.LaravelDataTables["dataTableBuilder"]=$("#company_table").DataTable({
+            "serverSide":true,
+            "processing":true,
+            "ajax":{
+                "url" : '{{route('company.datatable')}}',
+                "type": "GET"
+            },
+            "columns":[
+                {data: 'name',"orderable":true,"searchable":true},
+                {data: 'information',"orderable":false,"searchable":false},
+                {data: 'deleted_at',"orderable":false,"searchable":false},
+                {data: 'created_at',"orderable":false,"searchable":false},
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+            ]
+        });
     });
 </script>
 @endsection

@@ -102,7 +102,8 @@ return [
     'barcode'                       =>  'বারকোড ',
     'bottom'                        =>  'নীচ ',
 
-    #c
+    
+    'created_at'                    =>  'তৈরির সময় ',
     'category'                      =>  'বিভাগ ',
     'cash_in_hand'                  =>  'হাতে নগদ ',
     'created_by'                    =>  'তৈরী করেছেন ',

@@ -105,6 +105,7 @@ return [
     'bottom'                        =>  'Bottom ',
 
     #c
+    'created_at'                    =>  'Created at ',
     'category'                      =>  'Category ',
     'cash_in_hand'                  =>  'Cash in Hand ',
     'created_by'                    =>  'Created By ',
