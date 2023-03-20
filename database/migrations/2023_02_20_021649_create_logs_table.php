@@ -16,7 +16,6 @@ return new class extends Migration
 
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('role_id')->constrained('roles');
-            $table->foreignId('branch_id')->constrained('branches');
             
             $table->text('msg');
             $table->boolean('is_seen')->default(false);

@@ -23,15 +23,11 @@ return new class extends Migration
             $table->boolean('block')->default(false)->comment('0 (false) = active , 1(true) = blocked');
 
             $table->integer('employee_id')->nullable();
-            $table->foreignId('branch_id')->nullable()->constrained('branches');
 
             $table->foreignId('role_id')->nullable()->constrained('roles');
             
-            $table->enum('layouts',['vertical','horizontal'])->default('horizontal');
-            $table->enum('user_types',['basic','standard','premium'])->default('basic');
 
             $table->string('default_lan')->default('en');
-            $table->string('primary_printer')->nullable();
 
             //$table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
@@ -44,12 +40,11 @@ return new class extends Migration
         DB::table('users')->insert([
             [
                 'name'              =>  'Developer',
-                'email'             =>  'developer@rowshansoft.com',
+                'email'             =>  'administrator@administrator.com',
                 'email_verified_at' =>  now(),
                 'password'          =>  '$2y$10$S5sOVa5ExZ7sMDxFMvZKGeyPEnogrIsNV43CFefG5Y/LRDR/PPnnm', #developer@rowshansoft.com
                 'block'             =>  false,
 
-                'branch_id'         =>  1,
                 'default_lan'       =>  'en',
                 'role_id'           =>  '1',
 
@@ -64,9 +59,23 @@ return new class extends Migration
                 'password'          =>  '$2y$10$Ra1gm7.5KspMfuH6Ovc0nOToG1CKKCtnCBJXDwbYaX2MYY9tdyUJK', #admin@admin.com
                 'block'             =>  false,
 
-                'branch_id'         =>  1,
                 'default_lan'       =>  'en',
                 'role_id'           =>  '2',
+
+                'created_at'        =>  now(),
+                'updated_at'        =>  now(),
+                'created_by'        =>  '0'
+            ],
+            [
+                'name'              =>  'User',
+                'email'             =>  'user@user.com',
+                'email_verified_at' =>  now(),
+                'password'          =>  '$2y$10$qgsvHOwuCHOrnksxg2drMux5vRRwQHI1SfBkZFOfektDu0XNyhOWO', #user@user.com
+                'block'             =>  false,
+
+                'default_lan'       =>  'en',
+                'role_id'           =>  '3',
+                #'employee_id'       =>  '1',
 
                 'created_at'        =>  now(),
                 'updated_at'        =>  now(),

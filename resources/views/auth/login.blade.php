@@ -13,6 +13,9 @@
         @endif
 
         <h1 class="text-center" style="font-size: 32px;font-family:Figtree, ui-sans-serif;color:rgb(121, 121, 121)">{{ __('msg.login_your_account') }}</h1>
+        <div class="text-center m-0 p-0">
+            <a href="{{route('register') }}"style="font-family:Figtree, ui-sans-serif;color:rgb(121, 121, 121)"><span style="border-bottom: 1px solid black">Create an account!</span></a>
+        </div>
 
         <form method="POST" action="{{ route('login') }}">
             @csrf

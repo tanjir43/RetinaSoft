@@ -25,9 +25,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name','email','password',
+        'block','employee_id','default_lan',
+        'role_id','created_by','updated_by'
     ];
 
     /**
@@ -63,5 +63,10 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class)->withTrashed();
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class)->withTrashed();
     }
 }

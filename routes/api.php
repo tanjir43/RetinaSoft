@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,13 +19,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','Blade'
-   
-])
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','Blade'])
 ->group(function () {
-    
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $user = Auth::user();
+        if (in_array($user->role_id,[1,2])) {
+            return view('dashboard');
+
+        }else{
+            return redirect()->back()->with(['errors_' => [__('msg.access_deny')]]);  
+        }
     })->name('dashboard');
 
     Route::get('/organization','company\OrganizationController@index')->name('organization');

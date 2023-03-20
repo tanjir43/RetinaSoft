@@ -20,6 +20,13 @@ return new class extends Migration
             'permissions'   =>  '[1,2,3,4,5,6,100,101,1000,1001,1002,1003]',
             'created_by'    =>  '0'
         ],
+        [
+            'name'          =>  'User',
+            'name_l'        =>  'ব্যবহারকারী',
+            'permissions'   =>  '[]',
+            'created_by'    =>  '0'
+        ],
+
     ];
     /**
      * Run the migrations.
