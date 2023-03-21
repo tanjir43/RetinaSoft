@@ -21,9 +21,9 @@ return new class extends Migration
             'created_by'    =>  '0'
         ],
         [
-            'name'          =>  'User',
-            'name_l'        =>  'ব্যবহারকারী',
-            'permissions'   =>  '[]',
+            'name'          =>  'Employee',
+            'name_l'        =>  'কর্মচারী',
+            'permissions'   =>  '["0"]',
             'created_by'    =>  '0'
         ],
 

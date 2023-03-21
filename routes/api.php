@@ -21,13 +21,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','Blade'])
 ->group(function () {
-    Route::get('/dashboard', function () {
-        $user = Auth::user();
-        if ($user) {
-            return view('dashboard');
-        }
-        return view('auth.login');
-    })->name('dashboard');
+
+    Route::get('/app/dashboard', 'admin\DashboardController@index')->name('dashboard');
+
+
+  /*   $role = Auth::user()->role;
+    session()->put('role',strtolower($role));
+    if($role->id != 3){
+        return redirect()->back()->with(['errors_' => [__('msg.access_deny')]]);  
+    }else{
+        return redirect(route('dashboard'));
+    } */
 
     #company
     Route::get('company','company\CompanyController@index')->name('company');

@@ -110,18 +110,6 @@ return new class extends Migration
         [
             'id'        =>  1001,
             'parent'    =>  1000,
-            'name'      =>  'Company Profile',
-            'name_l'    =>  'কোম্পানির প্রোফাইল',
-            'web'       =>  'company-profile',
-            'app'       =>  '',
-            'web_icon'  =>  '',
-            'app_icon'  =>  '',
-            'note'      =>  '',
-            'note_l'    =>  '',
-        ],
-        [
-            'id'        =>  1002,
-            'parent'    =>  1000,
             'name'      =>  'User Role',
             'name_l'    =>  'ব্যবহারকারীর ভূমিকা',
             'web'       =>  'roles',
@@ -132,7 +120,7 @@ return new class extends Migration
             'note_l'    =>  '',
         ],
         [
-            'id'        =>  1003,
+            'id'        =>  1002,
             'parent'    =>  1000,
             'name'      =>  'User\'s List',
             'name_l'    =>  'ব্যবহারকারীর তালিকা',

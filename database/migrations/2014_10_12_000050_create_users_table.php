@@ -25,7 +25,6 @@ return new class extends Migration
             $table->integer('employee_id')->nullable();
 
             $table->foreignId('role_id')->nullable()->constrained('roles');
-            
 
             $table->string('default_lan')->default('en');
 
