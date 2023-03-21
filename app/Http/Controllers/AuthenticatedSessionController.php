@@ -35,13 +35,8 @@ class AuthenticatedSessionController extends Controller
             session()->put('permissions', json_decode($user->role->permissions));
             session()->put('locale', $user->default_lan);
 
-            if (in_array($user->role_id,[1,2])) {
-                #dd($user->role->id);
-                Config::set('fortify.home', RouteServiceProvider::ADMIN);
-            } else {
-                #dd(RouteServiceProvider::ADMIN);
-                Config::set('fortify.home', RouteServiceProvider::HOME);
-            }
+            Config::set('fortify.home', RouteServiceProvider::HOME);
+
             return app(LoginResponse::class);
         });
     }

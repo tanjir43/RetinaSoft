@@ -23,12 +23,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','B
 ->group(function () {
     Route::get('/dashboard', function () {
         $user = Auth::user();
-        if (in_array($user->role_id,[1,2])) {
+        if ($user) {
             return view('dashboard');
-
-        }else{
-            return redirect()->back()->with(['errors_' => [__('msg.access_deny')]]);  
         }
+        return view('auth.login');
     })->name('dashboard');
 
     #company
