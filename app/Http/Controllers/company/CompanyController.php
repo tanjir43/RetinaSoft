@@ -31,13 +31,13 @@ class CompanyController extends Controller
 
         $status = $this->save->Company($request,$id);
 
-        if($status == 'success') {
-            if(!empty($id)) {
-                return redirect(route('organization'));
+        if ($status == 'success') {
+            if (!empty($id)) {
+                return redirect(route('organization'))->with(['success' => 'successfully saved']);
             }
-            return back();
+            return back()->with(['success' => 'successfully saved']);
         } else {
-            return back();
+            return back()->with(['errors_' => $status]);
         }
     }
 
