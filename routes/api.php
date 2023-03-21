@@ -32,10 +32,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','B
     })->name('dashboard');
 
     #company
-    Route::get('/company','company\CompanyController@index')->name('company');
-    Route::post('/company-save','company\CompanyController@save')->name('company.save');
+    Route::get('company','company\CompanyController@index')->name('company');
+    Route::post('company-save','company\CompanyController@save')->name('company.save');
     Route::get('company-datatable', 'company\CompanyController@datatable')->name('company.datatable');
-
+    Route::get('company/edit/{id}', 'company\CompanyController@edit')->name('company.edit');
+    Route::get('company/block/{id}', 'company\CompanyController@block')->name('company.block');
+    Route::get('company/unblock/{id}', 'company\CompanyController@unblock')->name('company.unblock');
     
     Route::get('/branch', function () {
         return "branch";

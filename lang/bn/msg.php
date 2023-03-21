@@ -74,6 +74,7 @@ return [
     'address'                       =>  'ঠিকানা ',
 
     #b
+    'block_this_company?'           =>  'এই কোম্পানি বন্ধ করুন ',
     'balance_share'                 =>  'ব্যালেন্স শেয়ার ',
     'bill'                          =>  'বিল ',
     'balance_bf'                    =>  'ব্যালেন্স B/F ',
@@ -102,7 +103,8 @@ return [
     'barcode'                       =>  'বারকোড ',
     'bottom'                        =>  'নীচ ',
 
-    
+    #c
+    'closed'                        =>  'বন্ধ ',
     'created_at'                    =>  'তৈরির সময় ',
     'category'                      =>  'বিভাগ ',
     'cash_in_hand'                  =>  'হাতে নগদ ',
@@ -463,6 +465,7 @@ return [
     'total'                         =>  'মোট ',
     
     #u
+    'unblock_this_company?'          =>  'এই কোম্পানি খুলুন ',
     'used'                          =>  'ব্যবহৃত ',
     'update_password'               =>  'পাসওয়ার্ড আপডেট ',
     'update_password_info'          =>  'আপনার অ্যাকাউন্ট সুরক্ষিত থাকার জন্য একটি দীর্ঘ, এলোমেলো পাসওয়ার্ড ব্যবহার করছে তা নিশ্চিত করুন। ',

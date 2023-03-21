@@ -19,17 +19,17 @@ class Company extends Model
         'created_by', 'updated_by', 'deleted_by'
     ];
 
-    public function created_by()
+    public function createdby()
     {
         return $this->belongsTo(User::class,'created_by');
     }
     
-    public function updated_by()
+    public function updatedby()
     {
         return $this->belongsTo(User::class,'updated_by');
     }
     
-    public function deleted_by()
+    public function deletedby()
     {
         return $this->belongsTo(User::class,'deleted_by');
     }

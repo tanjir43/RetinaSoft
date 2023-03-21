@@ -88,4 +88,50 @@ class SaveRepository {
             return $e;
         }
     }
+
+    public function BlockCompany($id)
+    {
+        $deleted_by = Auth::user()->id;
+        $info = Company::find($id);
+        if (!empty($info)){
+            $info->deleted_by   = $deleted_by;
+            DB::beginTransaction();
+            try {
+                $info->save();
+                $info->delete();
+                DB::commit();
+                return 'success';
+            } catch (Exception $e) {
+                DB::rollback();
+                return $e;
+            }
+        }
+        else{
+            return __('msg.no_record_found');
+        }
+    }
+
+    public function UnblockCompany($id)
+    {
+        $updated_by = Auth::user()->id;
+        $info = Company::withTrashed()->find($id);
+        if (!empty($info)){
+            $info->updated_by   = $updated_by;
+            $info->deleted_by   = null;
+
+            DB::beginTransaction();
+            try {
+                $info->save();
+                $info->restore();
+                DB::commit();
+                return 'success';
+            } catch (Exception $e) {
+                DB::rollback();
+                return $e;
+            }
+        }
+        else{
+            return __('msg.no_record_found');
+        }
+    }
 }

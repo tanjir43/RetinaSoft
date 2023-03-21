@@ -75,6 +75,7 @@ return [
     'address'                       =>  'Address ',
 
     #b
+    'block_this_company?'           =>  'Block this company ',
     'balance_share'                 =>  'Balance Share ',
     'bill'                          =>  'Bill ',
     'balance_bf'                    =>  'Balance B/F ',
@@ -105,6 +106,7 @@ return [
     'bottom'                        =>  'Bottom ',
 
     #c
+    'closed'                        =>  'Closed ',
     'created_at'                    =>  'Created at ',
     'category'                      =>  'Category ',
     'cash_in_hand'                  =>  'Cash in Hand ',
@@ -472,6 +474,7 @@ return [
     'total'                         =>  'Total ',
 
     #u
+    'unblock_this_company?'         =>  'Unblock this company ',
     'used'                          =>  'Used ',
     'update_password'               =>  'Update Password ',
     'update_password_info'          =>  'Ensure your account is using a long, random password to stay secure. ',
