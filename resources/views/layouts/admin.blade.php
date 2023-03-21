@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>  
         <script src="{{ asset('saas/js/vendor.min.js') }}"></script>
         <script src="{{ asset('saas/js/app.min.js') }}"></script>
         <script src="{{ asset('toastr/toastr.min.js') }}"></script>
