@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 //     }
 //     return redirect(url('login'));
 // });
-Route::get('/','website\WebsiteController@index');
+Route::get('/','website\WebsiteController@index')->name('home');
 
 
 Route::get('change-lang/{lang}', 'ChangeLangController@index')->name('chang.lang');
