@@ -1,12 +1,16 @@
 <?php
 namespace App\Repositories;
 
+use App\Mail\UserMail;
 use App\Models\Company;
 use App\Models\Media;
+use App\Models\TempEmployee;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class SaveRepository {
 
@@ -134,4 +138,33 @@ class SaveRepository {
             return __('msg.no_record_found');
         }
     }
+
+    public function UserForm(Request $request)
+    {
+        #$role_id = 7;
+        $user = [
+            'name'                  =>  $request->name,
+            'email'                 =>  $request->email,
+            'password'              =>  Hash::make($request->password),
+            'created_by'            =>  '0'
+        ];
+  
+        $info  = [
+            'name'  =>  $request->name
+        ];
+
+        DB::beginTransaction();
+        try {
+            TempEmployee::create($user);
+            Mail::to($request->email)->send( new UserMail((object)$info));
+            DB::commit();
+            return 'success';
+
+        } catch (Exception $e) {
+            DB::rollback();
+            dd($e);
+            return $e;
+        }
+    }
+
 }

@@ -49,4 +49,13 @@ class ValidationRepository
             'registration_no'   => 'nullable|max:100|unique:companies,registration_no',
         ]);
     }
+
+    public function isValidUserForm(Request $request)
+    {
+        return $request->validate([
+            'name'          => 'required|max:190',
+            'email'         => 'required|email|unique:users,email|unique:employees,email|unique:temp_employees,email',
+            'password'      => 'required|min:8|max:190|confirmed',
+        ]);
+    }
 }

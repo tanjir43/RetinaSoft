@@ -29,6 +29,7 @@ Route::get('/','website\WebsiteController@index')->name('home');
 
 Route::get('change-lang/{lang}', 'ChangeLangController@index')->name('chang.lang');
 
+Route::post('/register','user\register\RegisterController@store');
 Route::post('/login','AuthenticatedSessionController@store');
 Route::post('/logout','AuthenticatedSessionController@destroy')->name('logout');;
 Route::post('/email/verify/{id}/{hash}','VerifyEmailController@__invoke');
