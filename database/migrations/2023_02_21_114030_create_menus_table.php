@@ -93,6 +93,44 @@ return new class extends Migration
             'note'      =>  '',
             'note_l'    =>  '',
         ],
+
+        #Organization
+/*         [
+            'id'        => 200,
+            'parent'    => null,
+            'name'      => 'Employee ',
+            'name_l'    => 'কর্মচারী ',
+            'web'       => 'employee',
+            'app'       => '',
+            'web_icon'  =>  'uil uil-users',
+            'app_icon'  =>  '',
+            'note'      =>  '',
+            'note_l'    =>  '',
+        ], */
+        [
+            'id'        => 200,
+            'parent'    => null,
+            'name'      => 'Requested Employee ',
+            'name_l'    => 'আবেদক কর্মচারী ',
+            'web'       => 'requested.employee',
+            'app'       => '',
+            'web_icon'  => 'uil uil-user',
+            'app_icon'  => '',
+            'note'      => '',
+            'note_l'    => '',
+        ],
+/*         [
+            'id'        => 201,
+            'parent'    => 200,
+            'name'      => 'Employee List',
+            'name_l'    => 'আবেদক কর্মচারী ',
+            'web'       => 'employee',
+            'app'       => '',
+            'web_icon'  =>  '',
+            'app_icon'  =>  '',
+            'note'      =>  '',
+            'note_l'    =>  '',
+        ], */
         
         #Settings start
         [

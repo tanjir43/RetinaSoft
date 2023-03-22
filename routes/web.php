@@ -32,7 +32,9 @@ Route::get('change-lang/{lang}', 'ChangeLangController@index')->name('chang.lang
 Route::post('/register','user\register\RegisterController@store');
 Route::post('/login','AuthenticatedSessionController@store');
 Route::post('/logout','AuthenticatedSessionController@destroy')->name('logout');;
-Route::post('/email/verify/{id}/{hash}','VerifyEmailController@__invoke');
+Route::get('/email/verify/{hash}','VerifyEmailController@__invoke');
+Route::get('verify-user/{code}/{client_id?}', 'VerifyEmailController@activateUser')->name('activate.user');
+
 
 Route::get('/my-profile','website\MyAccountController@index')->name('my.profile');
 

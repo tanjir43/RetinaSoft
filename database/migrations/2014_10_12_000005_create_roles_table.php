@@ -17,7 +17,7 @@ return new class extends Migration
         [
             'name'          =>  'Admin',
             'name_l'        =>  'অ্যাডমিন',
-            'permissions'   =>  '[1,2,3,4,5,6,100,101,1000,1001,1002,1003]',
+            'permissions'   =>  '[1,2,3,4,5,6,100,101,200,1000,1001,1002,1003]',
             'created_by'    =>  '0'
         ],
         [

@@ -16,9 +16,9 @@ return new class extends Migration
 
             $table->string('name')->collation('utf16_general_ci');
 
-            $table->string('nid')->nullable()->unique()->collation('utf16_general_ci');
-            $table->string('phone')->nullable()->unique()->collation('utf16_general_ci');
-            $table->string('email')->nullable()->unique()->collation('utf16_general_ci');
+            $table->string('nid')->unique()->collation('utf16_general_ci');
+            $table->string('phone')->unique()->collation('utf16_general_ci');
+            $table->string('email')->unique()->collation('utf16_general_ci');
             $table->text('address')->nullable()->collation('utf16_general_ci');
 
             $table->integer('created_by')->references('id')->on('users');

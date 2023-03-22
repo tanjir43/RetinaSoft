@@ -75,6 +75,7 @@ return [
     'address'                       =>  'Address ',
 
     #b
+    'block_this_employee?'          =>  'Block this employee ',
     'block_this_company?'           =>  'Block this company ',
     'balance_share'                 =>  'Balance Share ',
     'bill'                          =>  'Bill ',
@@ -278,6 +279,7 @@ return [
     'margin'                        =>  'Margin ',
 
     #n
+    'nid'                           =>  'NID ',
     'no_customer_error'             =>  'Without customer, Due is not acceptable! ',
     'net_payable'                   =>  'Net Payable ',
     'n'                             =>  '& ',
@@ -317,6 +319,7 @@ return [
     'old_discount_list'             =>  'Old Discount List ',
 
     #p
+    'pending'                       =>  'Pending ',
     'parent'                        =>  'Parent ',
     'please_add_all_employee'       =>  'Please add all employee ',
     'payable_salary'                =>  'Payable Salary ',
@@ -380,7 +383,9 @@ return [
     'qr'                            =>  'QR ',
     'qty'                           =>  'Qty ',
     
-    
+    #r
+    'rejected'                      =>  'Rejected ',
+    'requested'                     =>  'Requested ',
     'register_your_account'         =>  'Register ',
     'registration_no'               =>  'Registration No ',
     'register'                      =>  'Register',
@@ -474,6 +479,7 @@ return [
     'total'                         =>  'Total ',
 
     #u
+    'unblock_this_employee?'        =>  'Unblock this employee ',
     'unblock_this_company?'         =>  'Unblock this company ',
     'used'                          =>  'Used ',
     'update_password'               =>  'Update Password ',

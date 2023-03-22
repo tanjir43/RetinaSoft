@@ -74,6 +74,7 @@ return [
     'address'                       =>  'ঠিকানা ',
 
     #b
+    'block_this_employee?'          =>  'এই কর্মচারী বন্ধ করুন ',
     'block_this_company?'           =>  'এই কোম্পানি বন্ধ করুন ',
     'balance_share'                 =>  'ব্যালেন্স শেয়ার ',
     'bill'                          =>  'বিল ',
@@ -271,7 +272,8 @@ return [
     'measurement_info'              =>  'পরিমাপ ইউনিটের তথ্য ',
     'margin'                        =>  'মার্জিন ',
 
-    #n
+    
+    'nid'                           =>  'এনআইডি ',
     'no_customer_error'             =>  'গ্রাহক ছাড়া, বকেয়া গ্রহণযোগ্য নয়! ',
     'net_payable'                   =>  'নেট প্রদেয় ',
     'n'                             =>  'এবং ',
@@ -310,7 +312,8 @@ return [
     'opening_share'                 =>  'ওপেনিং শেয়ার ',
     'old_discount_list'             =>  'পুরাতন ডিসকাউন্টের তালিকা ',
 
-    
+    #p
+    'pending'                       =>  'বিচারাধীন ',
     'parent'                        =>  'প্যারেন্ট ',
     'please_add_all_employee'       =>  'সমস্ত কর্মচারী যোগ করুন ',
     'payable_salary'                =>  'প্রদেয় বেতন ',
@@ -373,6 +376,8 @@ return [
     'qty'                           =>  'পরিমান ',
     
     #r
+    'rejected'                      =>  'প্রত্যাখ্যাত ',
+    'requested'                     =>  'আবেদক ',
     'register_your_account'         =>  'একটি অ্যাকাউন্ট নিবন্ধন করুন ',
     'registration_no'               =>  'রেজিস্টার নম্বর ',
     'register'                      =>  'রেজিস্টার ',
@@ -465,7 +470,8 @@ return [
     'total'                         =>  'মোট ',
     
     #u
-    'unblock_this_company?'          =>  'এই কোম্পানি খুলুন ',
+    'unblock_this_employee?'        =>  'এই কর্মচারী খুলুন ',
+    'unblock_this_company?'         =>  'এই কোম্পানি খুলুন ',
     'used'                          =>  'ব্যবহৃত ',
     'update_password'               =>  'পাসওয়ার্ড আপডেট ',
     'update_password_info'          =>  'আপনার অ্যাকাউন্ট সুরক্ষিত থাকার জন্য একটি দীর্ঘ, এলোমেলো পাসওয়ার্ড ব্যবহার করছে তা নিশ্চিত করুন। ',

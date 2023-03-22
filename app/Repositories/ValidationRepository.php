@@ -56,6 +56,8 @@ class ValidationRepository
             'name'          => 'required|max:190',
             'email'         => 'required|email|unique:users,email|unique:employees,email|unique:temp_employees,email',
             'password'      => 'required|min:8|max:190|confirmed',
+            'phone'         => 'min:9|max:18|unique:employees,phone|unique:temp_employees,phone',
+            'nid'           => 'required|unique:employees,nid|unique:temp_employees,nid',
         ]);
     }
 }

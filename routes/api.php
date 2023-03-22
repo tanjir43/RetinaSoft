@@ -41,6 +41,13 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','B
     Route::get('company/block/{id}', 'company\CompanyController@block')->name('company.block');
     Route::get('company/unblock/{id}', 'company\CompanyController@unblock')->name('company.unblock');
     
+    #new requested employee
+    Route::get('requested-employee','admin\requestedEmployee\RequestedEmployeeController@index')->name('requested.employee');
+    Route::get('requested-employee-datatable','admin\requestedEmployee\RequestedEmployeeController@datatable')->name('requested.employee.datatable');
+    Route::get('requested-employee-accept/{id}', 'admin\requestedEmployee\RequestedEmployeeController@accept')->name('requested.employee.accept');
+    Route::get('requested-employee-reject/{id}', 'admin\requestedEmployee\RequestedEmployeeController@reject')->name('requested.employee.reject');
+
+
     Route::get('/branch', function () {
         return "branch";
     })->name('branch');
