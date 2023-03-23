@@ -64,12 +64,13 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','B
     Route::get('unblock-designation/{id}', 'employee\DesignationController@unblock')->name('designation.unblock');
     
     #Employees
-    Route::get('employees', 'employee\EmployeeController@index')->name('employee-list');
-    Route::post('save-employee', 'employee\EmployeeController@store');
-    Route::post('save-employee-history', 'employee\EmployeeController@store_history');
-    Route::post('save-employee-rejoin', 'employee\EmployeeController@store_rejoin');
-    Route::get('employee-profile/{id}', 'employee\EmployeeController@profile');
-
+    Route::get('employees', 'employee\EmployeeController@index')->name('employees');
+    Route::get('employees-datatable', 'employee\EmployeeController@datatable')->name('employee.datatable');
+    Route::post('save-employee/{id?}', 'employee\EmployeeController@save')->name('employee.save');
+    Route::get('employee-edit/{id}', 'employee\EmployeeController@edit')->name('employee.edit');
+    Route::get('block-employee/{id}', 'employee\EmployeeController@block')->name('employee.block');
+    Route::get('unblock-employee/{id}', 'employee\EmployeeController@unblock')->name('employee.unblock');
+    
     #attendance 
     Route::get('get-attendance-sheet', 'employee\AttendanceController@index')->name('attendance-sheet');
     Route::get('new-attendance-sheet', 'employee\AttendanceController@create');
