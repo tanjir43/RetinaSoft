@@ -14,6 +14,8 @@
         {{-- saas --}}
         <link href="{{ asset('saas/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
         {{-- <link href="{{ asset('saas/toastr/toastr.css') }}" rel="stylesheet"/> --}}
+        {{-- <script src="{{ asset('toastr/toastr.min.css') }}"></script> --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"></script>
 
         {{-- Styles --}}
         <link rel="stylesheet" href="{{ asset('saas/css/app.min.css') }}">
@@ -49,8 +51,9 @@
             </div>
         </div>  
         <script src="{{ asset('saas/js/vendor.min.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <script src="{{ asset('saas/js/app.min.js') }}"></script>
-        <script src="{{ asset('toastr/toastr.min.js') }}"></script>
+        {{-- <script src="{{ asset('toastr/toastr.min.js') }}"></script> --}}
 
         @foreach ($errors->all() as $error)
         <x-alert type="error" :msg="$error"/>
