@@ -75,4 +75,20 @@ class ValidationRepository
             'name_l'        => 'nullable|max:250|unique:departments,name_l'
         ]);
     }
+
+    public function isValidDesignation(Request $request){
+        $id = $request->id;
+        if ($id != 0) {
+            return Validator::make($request->all(), [
+                'name'          => 'required|max:250|unique:designations,name,' . $id,
+                'name_l'        => 'nullable|max:250|unique:designations,name_l,' . $id
+            ]);
+        }
+        return Validator::make($request->all(), [
+            'name'          => 'required|max:250|unique:designations,name',
+            'name_l'        => 'nullable|max:250|unique:designations,name_l'
+        ]);
+    }
+
+
 }

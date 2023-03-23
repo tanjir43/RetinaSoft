@@ -57,9 +57,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','B
     
     #Designation
     Route::get('designations', 'employee\DesignationController@index')->name('designations');
-    Route::post('save-designation', 'employee\DesignationController@store');
-    Route::post('block-designation', 'employee\DesignationController@block');
-    Route::post('unblock-designation', 'employee\DesignationController@unblock');
+    Route::get('designations-datatable', 'employee\DesignationController@datatable')->name('designation.datatable');
+    Route::post('save-designation/{id?}', 'employee\DesignationController@save')->name('designation.save');
+    Route::get('designation-edit/{id}', 'employee\DesignationController@edit')->name('designation.edit');
+    Route::get('block-designation/{id}', 'employee\DesignationController@block')->name('designation.block');
+    Route::get('unblock-designation/{id}', 'employee\DesignationController@unblock')->name('designation.unblock');
+    
     #Employees
     Route::get('employees', 'employee\EmployeeController@index')->name('employee-list');
     Route::post('save-employee', 'employee\EmployeeController@store');

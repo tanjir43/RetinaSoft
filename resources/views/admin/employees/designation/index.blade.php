@@ -8,10 +8,10 @@
 @section('content')
     <div class="row">
         <div class="col-sm-12 col-md-8">
-            <x-card variant="primary" outline="true" title="{!! __('msg.department').' '.__('msg.list') !!}">
+            <x-card variant="primary" outline="true" title="{!! __('msg.designation').' '.__('msg.list') !!}">
                 <x-slot name="body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="department_table" style="width: 100%">
+                        <table class="table table-bordered" id="designation_table" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th style="width: 50%">{{ __('msg.name') }}</th>
@@ -27,9 +27,9 @@
         </div>
    
         <div class="col-sm-12 col-md-4">
-            <x-form route="department.save" :update="$record->id ?? null">
+            <x-form route="designation.save" :update="$record->id ?? null">
                 <x-slot name="body">
-                    <x-card variant="primary"  title="{{__('msg.department').' '.__('msg.information')}}">
+                    <x-card variant="primary"  title="{{__('msg.designation').' '.__('msg.information')}}">
                         <x-slot name="body">
                             <div class="form-group">
                                 <?php
@@ -70,11 +70,11 @@
 <script>
     $(function() {
         window.LaravelDataTables=window.LaravelDataTables||{};
-        window.LaravelDataTables["dataTableBuilder"]=$("#department_table").DataTable({
+        window.LaravelDataTables["dataTableBuilder"]=$("#designation_table").DataTable({
             "serverSide":true,
             "processing":true,
             "ajax":{
-                "url" : '{{route('department.datatable')}}',
+                "url" : '{{route('designation.datatable')}}',
                 "type": "GET"
             },
             "columns":[

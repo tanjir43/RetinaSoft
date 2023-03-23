@@ -5,6 +5,7 @@ use App\Mail\UserAcceptMail;
 use App\Mail\UserMail;
 use App\Models\Company;
 use App\Models\Department;
+use App\Models\Designation;
 use App\Models\Employee;
 use App\Models\Media;
 use App\Models\TempEmployee;
@@ -294,6 +295,96 @@ class SaveRepository {
     {
         $updated_by = Auth::user()->id;
         $info = Department::withTrashed()->find($id);
+        if (!empty($info)){
+            $info->updated_by   = $updated_by;
+            $info->deleted_by   = null;
+
+            DB::beginTransaction();
+            try {
+                $info->save();
+                $info->restore();
+                DB::commit();
+                return 'success';
+            } catch (Exception $e) {
+                DB::rollback();
+                return $e;
+            }
+        }
+        else{
+            return __('msg.no_record_found');
+        }
+    }
+
+    public function Designation(Request $request,$id)
+    {
+        $created_by = Auth::user()->id;
+
+        if (!empty($id)) {
+            $info = Designation::find($id);
+
+            if (!empty($info)){
+                $info->name             =   $request->name;
+                $info->name_l           =   $request->name_l;
+                $info->updated_by       =   $created_by;
+
+                DB::beginTransaction();
+                try {
+                    $info->save();
+                    DB::commit();
+                    return 'success';
+                } catch (Exception $e) {
+                    DB::rollback();
+                    return $e;
+                }
+            }
+            else{
+                return  "No record found";
+            }
+        }
+
+        $data = [
+            'name'                  => $request->name,
+            'name_l'                => $request->name_l,
+            'created_by'            => $created_by,
+        ];
+
+        DB::beginTransaction();
+        try {
+            Designation::create($data);
+            DB::commit();
+            return 'success';
+        } catch (Exception $e) {
+            DB::rollback();
+            return $e;
+        }
+    }
+
+    public function BlockDesignation($id)
+    {
+        $deleted_by = Auth::user()->id;
+        $info = Designation::find($id);
+        if (!empty($info)){
+            $info->deleted_by   = $deleted_by;
+            DB::beginTransaction();
+            try {
+                $info->save();
+                $info->delete();
+                DB::commit();
+                return 'success';
+            } catch (Exception $e) {
+                DB::rollback();
+                return $e;
+            }
+        }
+        else{
+            return __('msg.no_record_found');
+        }
+    }
+
+    public function UnblockDesignation($id)
+    {
+        $updated_by = Auth::user()->id;
+        $info = Designation::withTrashed()->find($id);
         if (!empty($info)){
             $info->updated_by   = $updated_by;
             $info->deleted_by   = null;

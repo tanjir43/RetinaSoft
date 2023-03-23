@@ -74,6 +74,7 @@ return [
     'address'                       =>  'ঠিকানা ',
 
     #b
+    'block_this_designation?'       =>  'এই উপাধি বন্ধ করুন ',
     'block_this_department'         =>  'এই বিভাগ বন্ধ করুন ',
     'block_this_employee?'          =>  'এই কর্মচারী বন্ধ করুন ',
     'block_this_company?'           =>  'এই কোম্পানি বন্ধ করুন ',
@@ -471,6 +472,7 @@ return [
     'total'                         =>  'মোট ',
     
     #u
+    'unblock_this_designation'      =>  'এই উপাধি খুলুন ',
     'unblock_this_department'       =>  'এই বিভাগ খুলুন ',
     'unblock_this_employee?'        =>  'এই কর্মচারী খুলুন ',
     'unblock_this_company?'         =>  'এই কোম্পানি খুলুন ',
