@@ -18,8 +18,7 @@ class Employee extends Model
         'dob','id_card',
 
         'media_id',
-        'branch_id','department_id','designation_id',
-        'country_id',
+        'department_id','designation_id',
 
         'phone', 'phone_alt',
         'email', 'email_office',

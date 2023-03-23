@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 @endsection
 
-
 @section('content')
     <div class="row">
         <div class="col-sm-12 col-md-8">
