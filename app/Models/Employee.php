@@ -12,19 +12,56 @@ class Employee extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'name',
-        'nid',
-        'phone',
-        'email',
+        'name', 'name_l',
+        'nid','employee_id',
+
+        'dob','id_card',
+
+        'media_id',
+        'branch_id','department_id','designation_id',
+        'country_id',
+
+        'phone', 'phone_alt',
+        'email', 'email_office',
         'address',
-        'created_by',
-        'updated_by',
-        'deleted_by',
+        
+        'monthly_annual_leave','sick_leave',
+
+        'opening_balance','balance','status',
+        'created_by','updated_by','deleted_by',
     ];
 
-    public function customer_type()
+    public function department()
     {
-        return $this->belongsTo(CustomerType::class);
+        return $this->belongsTo(Department::class)->withTrashed();
+    }
+    
+    public function designation()
+    {
+        return $this->belongsTo(Designation::class)->withTrashed();
+    }
+
+    public function media()
+    {
+        return $this->belongsTo(Media::class);
+    }
+
+    public function appointment()
+    {
+        return $this->hasOne(EmployeeHistory::class)
+        ->where('status','!=', 'working')
+        ->latest()->withTrashed();
+    }
+
+    public function salary()
+    {
+        return $this->hasOne(EmployeeHistory::class)
+        ->latest();
+    }
+
+    public function history()
+    {
+        return $this->hasMany(EmployeeHistory::class)->latest()->withTrashed();
     }
 
     public function createdby()
