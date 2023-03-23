@@ -75,6 +75,7 @@ return [
     'address'                       =>  'Address ',
 
     #b
+    'block_this_department?'        =>  'Block this department ',
     'block_this_employee?'          =>  'Block this employee ',
     'block_this_company?'           =>  'Block this company ',
     'balance_share'                 =>  'Balance Share ',
@@ -479,6 +480,7 @@ return [
     'total'                         =>  'Total ',
 
     #u
+    'unblock_this_department'       =>  'Unblock this department ',
     'unblock_this_employee?'        =>  'Unblock this employee ',
     'unblock_this_company?'         =>  'Unblock this company ',
     'used'                          =>  'Used ',

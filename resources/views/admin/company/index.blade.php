@@ -92,15 +92,14 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <?php 
+                                        <?php
                                             $attr = [
-                                                'id'            => 'trade_licence',
-                                                'class'         => 'form-control',
+                                                'id'                => 'trade_license',
+                                                'class'             => 'form-control'
                                             ];
                                         ?>
-                                        {!! Form::label('trade_licence', __('msg.trade_license')) !!}
-                                        {!! Form::text('trade_licence',$record->trade_licence ?? old('trade_licence'),$attr) !!}
-                                    
+                                        {!! Form::label('trade_license', __('msg.trade_license')) !!}
+                                        {!! Form::text('trade_license',$record->trade_license ?? old('trade_license'),$attr) !!}
                                     </div>
                                 </div>
 

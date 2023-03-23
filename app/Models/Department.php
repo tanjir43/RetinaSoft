@@ -6,18 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Company extends Model
+class Department extends Model
 {
     use HasFactory;
     use SoftDeletes;
-
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'name','name_l','address','email','phone','trade_license','vat',
-        'vat_area_code', 'mashuk_no','tin','registration_no',
-        'created_by', 'updated_by', 'deleted_by'
+        'name', 'name_l',
+        'created_by','updated_by','deleted_by',
     ];
+
+    public function employees()
+    {
+        $this->hasMany(Employee::class)->withTrashed();
+    }
 
     public function createdby()
     {

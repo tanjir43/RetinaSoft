@@ -4,6 +4,7 @@ namespace App\Repositories;
 use App\Mail\UserAcceptMail;
 use App\Mail\UserMail;
 use App\Models\Company;
+use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Media;
 use App\Models\TempEmployee;
@@ -220,6 +221,96 @@ class SaveRepository {
         } catch (Exception $e) {
             DB::rollback();
             return $e;
+        }
+    }
+
+    public function Department(Request $request,$id)
+    {
+        $created_by = Auth::user()->id;
+
+        if (!empty($id)) {
+            $info = Department::find($id);
+
+            if (!empty($info)){
+                $info->name             =   $request->name;
+                $info->name_l           =   $request->name_l;
+                $info->updated_by       =   $created_by;
+
+                DB::beginTransaction();
+                try {
+                    $info->save();
+                    DB::commit();
+                    return 'success';
+                } catch (Exception $e) {
+                    DB::rollback();
+                    return $e;
+                }
+            }
+            else{
+                return  "No record found";
+            }
+        }
+
+        $data = [
+            'name'                  => $request->name,
+            'name_l'                => $request->name_l,
+            'created_by'            => $created_by,
+        ];
+
+        DB::beginTransaction();
+        try {
+            Department::create($data);
+            DB::commit();
+            return 'success';
+        } catch (Exception $e) {
+            DB::rollback();
+            return $e;
+        }
+    }
+
+    public function BlockDepartment($id)
+    {
+        $deleted_by = Auth::user()->id;
+        $info = Department::find($id);
+        if (!empty($info)){
+            $info->deleted_by   = $deleted_by;
+            DB::beginTransaction();
+            try {
+                $info->save();
+                $info->delete();
+                DB::commit();
+                return 'success';
+            } catch (Exception $e) {
+                DB::rollback();
+                return $e;
+            }
+        }
+        else{
+            return __('msg.no_record_found');
+        }
+    }
+
+    public function UnblockDepartment($id)
+    {
+        $updated_by = Auth::user()->id;
+        $info = Department::withTrashed()->find($id);
+        if (!empty($info)){
+            $info->updated_by   = $updated_by;
+            $info->deleted_by   = null;
+
+            DB::beginTransaction();
+            try {
+                $info->save();
+                $info->restore();
+                DB::commit();
+                return 'success';
+            } catch (Exception $e) {
+                DB::rollback();
+                return $e;
+            }
+        }
+        else{
+            return __('msg.no_record_found');
         }
     }
 

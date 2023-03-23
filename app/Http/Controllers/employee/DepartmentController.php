@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\company;
+namespace App\Http\Controllers\employee;
 
 use App\Http\Controllers\Controller;
-use App\Models\Company;
+use App\Models\Department;
 use App\Repositories\SaveRepository;
 use App\Repositories\ValidationRepository;
 use Illuminate\Http\Request;
 use yajra\Datatables\DataTables;
 
-
-class CompanyController extends Controller
+class DepartmentController extends Controller
 {
     private $vr;
     private $save;
@@ -22,18 +21,18 @@ class CompanyController extends Controller
 
     public function index()
     {
-        return view('admin.company.index');
+        return view('admin.employees.department.index');
     }
 
     public function save(Request $request, $id = null)
     {
-        $this->vr->isValidCompany($request,$id);
+        $this->vr->isValidDepartment($request,$id);
 
-        $status = $this->save->Company($request,$id);
+        $status = $this->save->Department($request,$id);
 
         if ($status == 'success') {
             if (!empty($id)) {
-                return redirect(route('company'))->with(['success' => 'successfully saved']);
+                return redirect(route('departments'))->with(['success' => 'successfully saved']);
             }
             return back()->with(['success' => 'successfully saved']);
         } else {
@@ -43,7 +42,7 @@ class CompanyController extends Controller
 
     public function datatable()
     {
-        $info = Company::withTrashed()->with( 'createdby', 'updatedby', 'deletedby')->orderby('id', 'DESC');
+        $info = Department::withTrashed()->with( 'createdby', 'updatedby', 'deletedby')->orderby('id', 'DESC');
 
         return DataTables::of($info)
             ->editColumn('name', function ($data) {
@@ -51,29 +50,7 @@ class CompanyController extends Controller
             })
             ->filterColumn('name', function ($query, $keyword) {
                 $query->where('name', 'like', '%' . $keyword . '%')
-                    ->orWhere('registration_no', 'like', '%' . $keyword . '%')
-                    ->orWhere('phone', 'like', '%' . $keyword . '%')
-                    ->orWhere('email', 'like', '%' . $keyword . '%')
-                    ->orWhere('trade_license', 'like', '%' . $keyword . '%');
-            })
-            ->editColumn('information', function ($data) {
-                $html = '';
-                if (!empty($data->email)) {
-                    $html .= '<span > <strong>'. __('msg.email'). ' :  </strong>' . ($data->email) . '</span>';
-                }
-                if (!empty($data->phone)) {
-                    $html .= '<br> <strong>' . __('msg.phone') . ' : </strong>' . $data->phone;
-                }
-                if (!empty($data->registration_no)) {
-                    $html .= '<br><strong>' . __('msg.registration_no') . ' : </strong>' . $data->registration_no;
-                }
-                if (!empty($data->trade_license)) {
-                    $html .= '<br><strong>' . __('msg.trade_license') . ' : </strong>' . $data->trade_license;
-                }
-                if (!empty($data->address)) {
-                    $html .= '<br><strong>' . __('msg.address') . ' :</strong>' . $data->address;
-                }
-                return $html;
+                    ->orWhere('name_l', 'like', '%' . $keyword . '%');
             })
             ->editColumn('deleted_at', function ($data) {
                 if (empty($data->deleted_at)) {
@@ -100,40 +77,40 @@ class CompanyController extends Controller
                 return $html;
             })
             ->addColumn('action', function ($data) {
-                $edit_url = route('company.edit', $data->id);
-                $block = route('company.block', $data->id);
-                $unblock = route('company.unblock', $data->id);
+                $edit_url = route('department.edit', $data->id);
+                $block = route('department.block', $data->id);
+                $unblock = route('department.unblock', $data->id);
 
                 $html = '<div class="text-center">';
 
                     if (empty($data->deleted_at)) {
                         $html .= '<a  href="' . $edit_url . '">' . '<i class="fas fa-edit"></i>' . '</a>';
                  
-                            $html .= '<a onclick="return confirm(\'' . __('msg.block_this_company?') . ' \')" href="' . $block . '">' .'<span style="margin-left:10px;"><i class="fas fa-lock  text-danger"></i></span>' . '</a>'  ;
+                            $html .= '<a onclick="return confirm(\'' . __('msg.block_this_department?') . ' \')" href="' . $block . '">' .'<span style="margin-left:10px;"><i class="fas fa-lock  text-danger"></i></span>' . '</a>'  ;
                        
                     } else {
-                        $html .= '<a onclick="return confirm(\'' . __('msg.unblock_this_company?') . ' \')" href="' . $unblock . '">' . '<i class="fas fa-unlock text-success"></i>' . '</a>';
+                        $html .= '<a onclick="return confirm(\'' . __('msg.unblock_this_department?') . ' \')" href="' . $unblock . '">' . '<i class="fas fa-unlock text-success"></i>' . '</a>';
                     }
                
                 $html .= '</ul></div>';
                 return $html; 
             })
-            ->rawColumns(['name', 'deleted_at', 'created_at', 'information', 'action'])
+            ->rawColumns(['name', 'deleted_at', 'created_at', 'action'])
             ->make(true);
     }
 
     public function edit($id)
     {
-        $record = Company::where('id', $id)->firstOrFail();
+        $record = Department::where('id', $id)->firstOrFail();
         
-        return view('admin.company.index',compact('record'));
+        return view('admin.employees.department.index',compact('record'));
     }
 
     public function block($id)
     {
-        $status = $this->save->BlockCompany($id);
+        $status = $this->save->BlockDepartment($id);
         if ($status == 'success') {
-            return redirect(route('company'))->with(['success' => 'successfully saved']);
+            return redirect(route('departments'))->with(['success' => 'successfully saved']);
         } else {
             return back()->with(['errors_' => $status]);
         }
@@ -141,9 +118,9 @@ class CompanyController extends Controller
 
     public function unblock($id)
     {
-        $status = $this->save->UnblockCompany($id);
+        $status = $this->save->UnblockDepartment($id);
         if ($status == 'success') {
-            return redirect(route('company'))->with(['success' => 'successfully saved']);
+            return redirect(route('departments'))->with(['success' => 'successfully saved']);
         } else {
             return back()->with(['errors_' => $status]);
         }

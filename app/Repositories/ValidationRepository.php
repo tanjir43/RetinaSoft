@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ValidationRepository
 {
@@ -21,7 +22,7 @@ class ValidationRepository
     public function isValidCompany(Request $request, $id)
     {
         if(!empty($id)) {
-            return $request->validate([
+            return Validator::make($request->all(), [
                 'name'              => 'required|max:190',
                 'name_l'            => 'nullable|max:190',
                 'address'           => 'nullable|max:3000',
@@ -35,7 +36,7 @@ class ValidationRepository
                 'registration_no'   => 'nullable|max:100|unique:companies,registration_no'.$id,
             ]);
         }
-        return $request->validate([
+        return Validator::make($request->all(), [
             'name'              => 'required|max:190',
             'name_l'            => 'nullable|max:190',
             'address'           => 'nullable|max:3000',
@@ -58,6 +59,20 @@ class ValidationRepository
             'password'      => 'required|min:8|max:190|confirmed',
             'phone'         => 'min:9|max:18|unique:employees,phone|unique:temp_employees,phone',
             'nid'           => 'required|unique:employees,nid|unique:temp_employees,nid',
+        ]);
+    }
+
+    public function isValidDepartment(Request $request){
+        $id = $request->id;
+        if ($id != 0) {
+            return Validator::make($request->all(), [
+                'name'          => 'required|max:250|unique:departments,name,' . $id,
+                'name_l'        => 'nullable|max:250|unique:departments,name_l,' . $id
+            ]);
+        }
+        return Validator::make($request->all(), [
+            'name'          => 'required|max:250|unique:departments,name',
+            'name_l'        => 'nullable|max:250|unique:departments,name_l'
         ]);
     }
 }
