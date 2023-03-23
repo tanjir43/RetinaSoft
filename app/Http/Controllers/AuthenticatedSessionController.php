@@ -19,6 +19,7 @@ use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
 use Laravel\Fortify\Http\Responses\TwoFactorLoginResponse;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Http\Responses\FailedTwoFactorLoginResponse;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthenticatedSessionController extends Controller
 {

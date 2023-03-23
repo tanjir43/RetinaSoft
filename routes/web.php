@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\LoginWithGoogleController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,9 +28,10 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::get('/','website\WebsiteController@index')->name('home');
 
+Route::get('authorized/google','LoginWithGoogleController@redirectToGoogle');
+Route::get('authorized/google/callback','LoginWithGoogleController@handleGoogleCallback');
 
 Route::get('change-lang/{lang}', 'ChangeLangController@index')->name('chang.lang');
-
 Route::post('/register','user\register\RegisterController@store');
 Route::post('/login','AuthenticatedSessionController@store');
 Route::post('/logout','AuthenticatedSessionController@destroy')->name('logout');;
