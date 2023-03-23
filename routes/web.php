@@ -39,7 +39,7 @@ Route::get('verify-user/{code}/{client_id?}', 'VerifyEmailController@activateUse
 Route::get('/my-profile','website\MyAccountController@index')->name('my.profile');
 
 Route::group(['middleware' => ['auth','verified']], function () {
-    Route::get('/dashboard/{id?}','user\UserDashboardController@index')->name('user.dashboard');
+    Route::get('/dashboard','user\UserDashboardController@index')->name('user.dashboard');
 
 });
 Route::get('/app', function () {

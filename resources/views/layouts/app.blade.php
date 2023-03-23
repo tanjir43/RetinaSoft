@@ -100,6 +100,7 @@
       })();
       
     </script>
+    @yield('css')
     <!-- Vendor Styles-->
     <link rel="stylesheet" media="screen" href="{{ asset('home/vendor/simplebar/dist/simplebar.min.css') }}"/>
     <link rel="stylesheet" media="screen" href="{{asset('home/vendor/tiny-slider/dist/tiny-slider.css')}}"/>
@@ -216,6 +217,7 @@
     <script src="{{asset('home/vendor/parallax-js/dist/parallax.min.js')}}"></script>
     <script src="{{asset('home/vendor/nouislider/dist/nouislider.min.css')}}"></script>
     <!-- Main theme script-->
+    @yield('js')
     <script src="{{ asset('home/js/theme.min.js') }}"></script>
   </body>
 </html>
