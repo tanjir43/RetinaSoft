@@ -11,13 +11,15 @@ class AttendanceSheetDetail extends Model
     protected $fillable =  [
         'employee_id',
         'attendance_sheet_id',
-        'salary',
-        'total_day',
-        'present_days',
-        'absent_days',
-        'annual_days',
-        'sick_days',
-        'payable_salary'
+        'in_time',
+        'out_time'
+        #'salary',
+        #'total_day',
+        #'present_days',
+        #'absent_days',
+        #'annual_days',
+        #'sick_days',
+        #'payable_salary'
     ];  
 
     public function  attendance_sheet()
