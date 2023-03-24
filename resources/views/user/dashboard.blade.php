@@ -31,12 +31,19 @@
                 <li><a class="nav-link fw-normal p-0" href="mailto:{{$current_user->email}}"><i class="fi-mail opacity-60 me-2"></i>{{$current_user->employee->email ?? ''}}</a></li>
                 </ul>
             </div>
-            </div><a class="btn btn-primary btn-lg w-100 mb-3" href="real-estate-add-property.html"><i class="fi-plus me-2"></i>Add property</a><a class="btn btn-outline-secondary d-block d-md-none w-100 mb-3" href="#account-nav" data-bs-toggle="collapse"><i class="fi-align-justify me-2"></i>Menu</a>
+            @if (!empty($attendance_detail->in_time))
+                </div><a class="btn btn-primary btn-lg w-100 mb-3"  href="#"><i class="fi-plus me-2"></i>Add Today Out Time</a><a class="btn btn-outline-secondary d-block d-md-none w-100 mb-3" href="#account-nav" data-bs-toggle="collapse"><i class="fi-align-justify me-2"></i>Menu</a>
+
+            @else
+            </div><a class="btn btn-success btn-lg w-100 mb-3"  href="{{route('create.attendance')}}"><i class="fi-plus me-2"></i>Add Today In Time</a><a class="btn btn-outline-primary d-block d-md-none w-100 mb-3" href="#account-nav" data-bs-toggle="collapse"><i class="fi-align-justify me-2"></i>Menu</a>
+
+            @endif
+            
             <div class="collapse d-md-block mt-3" id="account-nav">
             <div class="card-nav">
-                <a class="card-nav-link active" href="real-estate-account-info.html"><i class="fi-user opacity-60 me-2"></i>Personal Info</a>
-                <a class="card-nav-link" href="real-estate-account-security.html"><i class="fi-lock opacity-60 me-2"></i>Password &amp; Security</a>
-                <a class="card-nav-link" href="signin-light.html"><i class="fi-logout opacity-60 me-2"></i>Sign Out</a></div>
+                <a class="card-nav-link active" href="#"><i class="fi-user opacity-60 me-2"></i>Personal Info</a>
+                <a class="card-nav-link" href="#"><i class="fi-lock opacity-60 me-2"></i>Password &amp; Security</a>
+                <a class="card-nav-link" href="{{route('logout')}}"><i class="fi-logout opacity-60 me-2"></i>Sign Out</a></div>
             </div>
         </div>
         </aside>

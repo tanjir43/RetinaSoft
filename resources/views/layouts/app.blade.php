@@ -131,7 +131,7 @@
         <div class="container"><a class="navbar-brand me-0 me-xl-4" href="job-board-home-v1.html"><img class="d-block" src="{{asset('images/rs_logo.png')}}"  alt="Retina Soft" style="width: 200px"></a>
           @auth
           <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-          <a class="btn btn-link btn-dark btn-sm d-none d-lg-block order-lg-3 pe-0 ms-2" href="job-board-home-v2.html">My Profile<i class="fi-arrow-long-right ms-2"></i></a>
+          <a class="btn btn-link btn-dark btn-sm d-none d-lg-block order-lg-3 pe-0 ms-2" href="{{route('user.dashboard')}}">My Profile<i class="fi-arrow-long-right ms-2"></i></a>
           @else
           <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <a class="btn btn-link btn-dark btn-sm d-none d-lg-block order-lg-3" href="{{route('login')}}"><i class="fi-user me-2"></i>Sign in</a>

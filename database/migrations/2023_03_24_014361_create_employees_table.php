@@ -18,18 +18,18 @@ return new class extends Migration
             $table->string('name_l')->nullable()->collation('utf16_general_ci');
 
             $table->string('nid')->unique()->collation('utf16_general_ci');
-            $table->string('employee_id')->unique();
+            $table->string('employee_id')->unique()->nullable();
            
-            $table->date('dob');
+            $table->date('dob')->nullable();
             $table->string('id_card')->unique()->nullable()->collation('utf16_general_ci');
 
             $table->foreignId('media_id')->nullable()->constrained('media');
 
-            $table->foreignId('department_id')->constrained('departments');
-            $table->foreignId('designation_id')->constrained('designations');
+            $table->foreignId('department_id')->nullable()->constrained('departments');
+            $table->foreignId('designation_id')->nullable()->constrained('designations');
             
             $table->string('phone',20)->unique()->collation('utf16_general_ci');
-            $table->string('phone_alt',20)->nullable()->collation('utf16_general_ci');
+            $table->string('phone_alt',20)->nullable()->nullable()->collation('utf16_general_ci');
             $table->string('email')->nullable()->unique()->collation('utf16_general_ci');
             $table->string('email_office')->nullable()->collation('utf16_general_ci');
 

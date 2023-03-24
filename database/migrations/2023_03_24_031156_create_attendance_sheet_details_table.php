@@ -15,13 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('employee_id')->constrained('employees');
             $table->foreignId('attendance_sheet_id')->constrained('attendance_sheets');
+            $table->string('day')->nullable()->unique();
             #$table->float('total_day',12,2)->default(0);
             #$table->float('present_days',12,2)->default(0);
             #$table->float('absent_days',12,2)->default(0);
             #$table->float('annual_days',12,2)->default(0);
             #$table->float('sick_days',12,2)->default(0);
-            $table->date('in_time')->nullable();
-            $table->date('out_time')->nullable();
+            $table->string('in_time')->nullable();
+            $table->string('out_time')->nullable();
             $table->timestamps();
         });
     }

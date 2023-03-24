@@ -11,6 +11,7 @@ class AttendanceSheetDetail extends Model
     protected $fillable =  [
         'employee_id',
         'attendance_sheet_id',
+        'day',
         'in_time',
         'out_time'
         #'salary',

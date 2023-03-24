@@ -210,6 +210,7 @@ class SaveRepository {
         DB::beginTransaction();
         try {
             $employee = Employee::create($employee_data);
+
             $user_data['employee_id'] = $employee->id;
             
             User::create($user_data);
