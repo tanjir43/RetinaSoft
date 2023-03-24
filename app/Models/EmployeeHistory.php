@@ -15,7 +15,7 @@ class EmployeeHistory extends Model
     protected $fillable = [
         'employee_id',
         'joining_date','last_working_date',
-        'is_transferred', 'is_promoted', 'is_resigned', 'is_fired',
+        'is_promoted', 'is_resigned', 'is_fired',
         'department_id','designation_id',
         'basic_salary','other_benefits','overtime_rate','bonus',
         'comment','status',

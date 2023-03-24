@@ -416,6 +416,7 @@ return [
     'ref'                           =>  'Ref',
 
     #s
+    'select'                        =>  'Select ',
     'share_value'                   =>  'Share Value ',
     'sign'                          =>  'Signature ',
     'salary'                        =>  'Salary ',

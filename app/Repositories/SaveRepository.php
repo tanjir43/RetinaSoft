@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\Department;
 use App\Models\Designation;
 use App\Models\Employee;
+use App\Models\EmployeeHistory;
 use App\Models\Media;
 use App\Models\TempEmployee;
 use App\Models\User;
@@ -405,4 +406,268 @@ class SaveRepository {
         }
     }
 
+    public function Employee(Request $request,$id)
+    {
+        $user = Auth::user()->id;
+        $id = $request->id;
+
+        if (!empty($id)) {
+            $info = Employee::with('appointment')->withTrashed()->find($id);
+            $totalEmployeeHistory = EmployeeHistory::where('employee_id',$id)->count();
+
+            if (!empty($info)){
+                $appointment_id = $info->appointment->id;
+
+                $info->employee_id      =   $request->employee_id;
+                $info->name             =   $request->name;
+                $info->name_l           =   $request->name_l;
+                $info->dob              =   date('Y-m-d',strtotime($request->date_of_birth));
+                $info->id_card          =   $request->id_card;
+                $info->nid              =   $request->nid;
+        
+                if ($totalEmployeeHistory <= 1) {
+                    $info->department_id    =   $request->department;
+                    $info->designation_id   =   $request->designation;
+                }
+        
+                $info->phone            =   $request->phone;
+                $info->phone_alt        =   $request->phone_alt;
+                $info->email            =   $request->email;
+                $info->email_office     =   $request->email_office;
+                $info->address          =   $request->address;
+        
+                if ($info->opening_balance > $request->opening_balance) {
+                    $change = $request->opening_balance - $info->opening_balance;
+                    $info->balance      +=   $change;
+                }
+                elseif ($info->opening_balance < $request->opening_balance) {
+                    $change = $info->opening_balance - $request->opening_balance;
+                    $info->balance      -=   $change;
+                }
+                $info->opening_balance  =   $request->opening_balance;
+                $info->updated_by   =   $user;
+        
+                DB::beginTransaction();
+                try {
+                    $info->save();
+                    EmployeeHistory::where('id',$appointment_id)
+                    ->update([
+                        'branch_id'         =>  $request->branch,
+                        'department_id'     =>  $request->department,
+                        'designation_id'    =>  $request->designation,
+        
+                        'basic_salary'      =>  $request->basic_salary,
+        
+                        'joining_date'      =>  date('Y-m-d',strtotime($request->joining_date)),
+                        'updated_by'        =>  $user
+                    ]);
+                    DB::commit();
+                    return 'success';
+                } catch (Exception $e) {
+                    DB::rollback();
+                    return $e;
+                }
+            }
+            else{
+                return  "No record found";
+            }
+        }
+
+        $data = [
+            'employee_id'       =>  $request->employee_id,
+            'name'              =>  $request->name,
+            'name_l'            =>  $request->name_l,
+            'dob'               =>  date('Y-m-d',strtotime($request->date_of_birth)),
+            'id_card'           =>  $request->id_card,
+            'nid'               =>  $request->nid,
+
+            'department_id'     =>  $request->department,
+            'designation_id'    =>  $request->designation,
+
+            'phone'             =>  $request->phone,
+            'phone_alt'         =>  $request->phone_alt,
+            'email'             =>  $request->email,
+            'email_office'      =>  $request->email_office,
+            'address'           =>  $request->address,
+
+            'opening_balance'   =>  $request->opening_balance,
+            'balance'           =>  $request->opening_balance,
+
+            'created_by'        =>  $user
+        ];
+        
+        $joining_data = [
+            'department_id'     =>  $request->department,
+            'designation_id'    =>  $request->designation,
+
+            'basic_salary'      =>  $request->basic_salary,
+
+            'status'            =>  'join',
+            'joining_date'      =>  date('Y-m-d',strtotime($request->joining_date)),
+            'created_by'        =>  $user
+        ];
+
+        DB::beginTransaction();
+        try {
+            $employee = Employee::create($data);
+            $joining_data['employee_id']    =   $employee->id;
+            EmployeeHistory::create($joining_data);
+            DB::commit();
+            return 'success';
+        } catch (Exception $e) {
+            DB::rollback();
+            return $e;
+        }
+    }
+
+    public function EmployeeHistory(Request $request,$id)
+    {
+        
+        $user = Auth::user()->id;
+        $id = $request->id;
+
+        $employee = Employee::find($request->employee_id);
+        $employee_name = $employee->name;
+
+        if (!empty($id)) {
+            //check is history is last one?
+            $latestHistory = EmployeeHistory::where('employee_id',$request->employee_id)
+            ->orderBy('id','desc')->first();
+            if ($latestHistory->id == $request->id) {
+                /* 
+                    if latest history id and request id is same 
+                    update employee table and history table
+                */
+                #get employee history
+                $history = EmployeeHistory::find($request->id);
+
+                #set employee update info
+                $employee->department_id    =   $request->department;
+                $employee->designation_id   =   $request->designation;
+
+                $employee->updated_by       =   $user;
+                $employee->updated_at       =   now();
+
+                #set employee history update info
+                $history->department_id     =   $request->department;
+                $history->designation_id    =   $request->designation;
+
+                $history->basic_salary      =   $request->basic_salary;
+
+                $history->joining_date      =   date('Y-m-d', strtotime($request->joining_date));
+
+                $history->updated_by        =   $user;
+                $history->updated_at        =   now();
+
+                DB::beginTransaction();
+                try {
+                    $employee->save();
+                    $history->save();
+                    DB::commit();
+
+                    return 'success';
+                } catch (Exception $e) {
+                    DB::rollback();
+                    return response()->json(['errors' => [__('msg.problem_try_again')]]);
+                }
+            } else {
+                #get employee history
+                $history = EmployeeHistory::find($request->id);
+
+                $history->branch_id         =   $request->branch;
+                $history->department_id     =   $request->department;
+                $history->designation_id    =   $request->designation;
+
+                $history->basic_salary      =   $request->basic_salary;
+                #$history->other_benefits    =   $request->other_benefits;
+                #$history->overtime_rate     =   $request->overtime_rate;
+                #$history->bonus             =   $request->bonus;
+                
+                $history->joining_date      =   date('Y-m-d', strtotime($request->joining_date));
+                $history->last_working_date =   date('Y-m-d', strtotime($request->last_working_date));
+                
+                $history->is_transferred    =   $request->is_transferred;
+                $history->is_promoted       =   $request->is_promoted;
+
+                $history->is_fired          =   $request->is_fired;
+                $history->is_resigned       =   !$request->is_fired && $request->is_resigned  ? true : false;
+
+                $history->comment           =   $request->comment;
+
+                $history->updated_by        =   $user;
+                $history->updated_at        =   now();
+
+                DB::beginTransaction();
+                try {
+                    $history->save();
+                    DB::commit();
+
+                    SetLog('Update An Employee Working History. (' . $employee_name . ')');
+                    return response()->json(['success'  =>  __('msg.successfully_done')]);
+                } catch (Exception $e) {
+                    DB::rollback();
+                    return $e;
+                }
+            }
+        }
+
+        if(!$request->is_fired && !$request->is_resigned){            
+            $employee->department_id    =   $request->department;
+            $employee->designation_id   =   $request->designation;
+        }
+        $employee->updated_by       =   $user;
+        $employee->updated_at       =   now();
+
+        $last_history = EmployeeHistory::where('employee_id',$request->employee_id)
+        ->orderBy('id','desc')->first();
+
+        if($request->is_fired){
+            $employee->status = 'fired';
+        }
+        elseif($request->is_resigned){
+            $employee->status = 'resigned';
+        }
+
+        $last_history->is_fired = $request->is_fired;
+        $last_history->is_resigned = !$request->is_fired && $request->is_resigned  ? true : false;
+        $last_history->is_promoted = $request->is_promoted;
+
+        $last_history->last_working_date = date('Y-m-d',strtotime($request->last_working_date));
+
+        $last_history->comment      =   $request->comment;
+        $last_history->updated_by   =   $user;
+        $last_history->updated_at   =   now();
+
+
+        $data = [
+            'employee_id'       =>  $request->employee_id,
+            'department_id'     =>  $request->department,
+            'designation_id'    =>  $request->designation,
+
+            'basic_salary'      =>  $request->basic_salary,
+
+            'joining_date'      =>  date('Y-m-d', strtotime($request->joining_date)),
+            'created_by'        =>  $user
+        ];        
+
+        DB::beginTransaction();
+        try {
+            $employee->save();
+            $last_history->save();
+
+            if(
+                (!$request->is_fired && !$request->is_resigned) &&
+                ($request->is_promoted)
+            ){
+                EmployeeHistory::create($data);
+                User::where('employee_id', $employee->id)->update(['branch_id' => $request->branch]);
+            }
+            DB::commit();
+
+            return 'success';
+        } catch (Exception $e) {
+            DB::rollback();
+            return $e;
+        }
+    }
 }

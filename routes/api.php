@@ -64,9 +64,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','B
     Route::get('unblock-designation/{id}', 'employee\DesignationController@unblock')->name('designation.unblock');
     
     #Employees
-    Route::get('employees', 'employee\EmployeeController@index')->name('employees');
+    Route::get('employee-list', 'employee\EmployeeController@index')->name('employee-list');
     Route::get('employees-datatable', 'employee\EmployeeController@datatable')->name('employee.datatable');
     Route::post('save-employee/{id?}', 'employee\EmployeeController@save')->name('employee.save');
+    Route::post('save-employee-history', 'employee\EmployeeController@store_history')->name('employee.history.save');
     Route::get('employee-edit/{id}', 'employee\EmployeeController@edit')->name('employee.edit');
     Route::get('block-employee/{id}', 'employee\EmployeeController@block')->name('employee.block');
     Route::get('unblock-employee/{id}', 'employee\EmployeeController@unblock')->name('employee.unblock');

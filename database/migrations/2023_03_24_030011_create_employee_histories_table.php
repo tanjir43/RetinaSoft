@@ -26,7 +26,6 @@ return new class extends Migration
             $table->date('joining_date');
             $table->date('last_working_date')->nullable();
 
-            $table->boolean('is_transferred')->nullable();
             $table->boolean('is_promoted')->nullable();
             $table->boolean('is_resigned')->nullable();
             $table->boolean('is_fired')->nullable();

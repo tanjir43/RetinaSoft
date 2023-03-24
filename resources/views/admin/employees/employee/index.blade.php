@@ -5,6 +5,19 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 @endsection
 
+<?php 
+$departmentList[] = __('msg.select').' '.__('msg.department');
+foreach($departments as $department){
+    $departmentList[$department->id] = ConvertToLang($department);
+}
+
+$designationList[] = __('msg.select').' '.__('msg.designation');
+foreach($designations as $designation){
+    $designationList[$designation->id] = ConvertToLang($designation);
+}
+
+?>
+
 @section('content')
     <div class="row">
         <div class="col-sm-12 col-md-8">
@@ -28,31 +41,98 @@
         </div>
    
         <div class="col-sm-12 col-md-4">
-            <x-form route="company.save" :update="$record->id ?? null">
+            <x-form route="employee.save" :update="$record->id ?? null">
                 <x-slot name="body">
                     <x-card variant="primary"  title="{{__('msg.employee').' '.__('msg.information')}}">
                         <x-slot name="body">
-                            <div class="form-group">
-                                <?php
-                                    $attr = [
-                                        'id'        => 'name',
-                                        'class'     => 'form-control',
-                                        'required'  => 'required',
-                                    ];
-                                ?>
-                                {!! Form::label('name', __('msg.name')) !!}
-                                {!! Form::text('name',$record->name ?? old('name'),$attr) !!}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php
+                                            $attr = [
+                                                'id'        => 'employee_id',
+                                                'class'     => 'form-control',
+                                                'required'  => 'required',
+                                            ];
+                                        ?>
+                                        {!! Form::label('employee_id', __('msg.employee_id')) !!} <span class="text-danger">*</span>
+                                        {!! Form::text('employee_id',$record->name ?? old('employee_id'),$attr) !!}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php
+                                            $attr = [
+                                                'id'        => 'name',
+                                                'class'     => 'form-control',
+                                                'required'  => 'required',
+                                            ];
+                                        ?>
+                                        {!! Form::label('name', __('msg.name')) !!} <span class="text-danger">*</span>
+                                        {!! Form::text('name',$record->name ?? old('name'),$attr) !!}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <?php
-                                    $attr = [
-                                        'id'        => 'name_l',
-                                        'class'     => 'form-control',
-                                    ];
-                                ?>
-                                {!! Form::label('name_l',__('msg.name_l')) !!}
-                                {!! Form::text('name_l',$record->name_l ?? old('name_l'),$attr) !!}
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php
+                                            $attr = [
+                                                'class'         =>  'form-control',
+                                                'id'            =>  'department',
+                                                'required'      =>  'required',
+                                            ];
+                                        ?>
+                                        {!! Form::label('department', __('msg.department')) !!} <span class="text-danger">*</span>
+                                        {!! Form::select('department',$departmentList,$record->department_id ?? old('department'),$attr) !!}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php
+                                            $attr = [
+                                                'class'         =>  'form-control',
+                                                'id'            =>  'designation',
+                                                'required'      =>  'required',
+                                            ];
+                                        ?>
+                                        {!! Form::label('designation', __('msg.designation')) !!} <span class="text-danger">*</span>
+                                        {!! Form::select('designation',$designationList,$record->designation_id ?? old('designation'),$attr) !!}
+                                    </div>
+                                </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php
+                                            $attr = [
+                                                'id'        => 'salary',
+                                                'class'     => 'form-control',
+                                                'required'  => 'required',
+                                            ];
+                                        ?>
+                                        {!! Form::label('salary', __('msg.salary')) !!} <span class="text-danger">*</span>
+                                        {!! Form::number('salary',$record->name ?? old('salary'),$attr) !!}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php
+                                            $attr = [
+                                                'id'        => 'opening_balance',
+                                                'class'     => 'form-control',
+                                                'required'  => 'required',
+                                            ];
+                                        ?>
+                                        {!! Form::label('opening_balance', __('msg.opening_balance')) !!} <span class="text-danger">*</span>
+                                        {!! Form::number('opening_balance',$record->opening_balance ?? old('opening_balance'),$attr) !!}
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            
 
                             <div class="form-group">
                                 <?php
@@ -211,7 +291,7 @@
             "serverSide":true,
             "processing":true,
             "ajax":{
-                "url" : '{{route('company.datatable')}}',
+                "url" : '{{route('employee.datatable')}}',
                 "type": "GET"
             },
             "columns":[

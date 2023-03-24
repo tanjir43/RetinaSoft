@@ -24,7 +24,7 @@ class RequestedEmployeeController extends Controller
 
     public function index()
     {
-        return view('admin.company.requestEmployee.index');
+        return view('admin.requestEmployee.index');
     }
 
     public function datatable()

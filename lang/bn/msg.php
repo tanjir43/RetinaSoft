@@ -407,6 +407,7 @@ return [
     'raw_materials_info'            =>  'কাঁচামাল তথ্য',
 
     #s
+    'select'                        =>  'নির্বাচন করুন ',
     'share_value'                   =>  'শেয়ারের মূল্য ',
     'sign'                          =>  'স্বাক্ষর ',
     'salary'                        =>  'বেতন ',

@@ -90,5 +90,76 @@ class ValidationRepository
         ]);
     }
 
+    public function isValidEmployee(Request $request, $id)
+    {
+        if(!empty($id)) {
+            return Validator::make($request->all(), [
+                'name'              => 'required|max:250',
+                'name_l'            => 'nullable|max:250',
+                'date_of_birth'     => 'required',
+                'id_card'           => 'nullable|max:190|unique:employees,id_card,'.$id,
+                'nid'               => 'required|unique:employees,nid|unique:employees,nid'.$id,
 
+                'employee_id'       => 'required|max:190|unique:employees,employee_id,'.$id,
+                'joining_date'      => 'required',
+                'department'        => 'required|exists:departments,id',
+                'designation'       => 'required|exists:designations,id',
+
+                'basic_salary'      =>  'required|numeric|between:1,999999999.99',
+                'opening_balance'   =>  'required|numeric|between:-999999999.99,999999999.99',
+
+                'phone'             => 'nullable|max:190|unique:employees,phone,'.$id,
+                'phone_alt'         => 'nullable|max:190',
+                'email'             => 'nullable|max:190|email|unique:employees,email,'.$id,
+                'email_office'      => 'nullable|max:190',
+                'address'           => 'nullable|max:65500',
+            ]);
+        }
+        return Validator::make($request->all(), [
+            'name'              => 'required|max:250',
+            'name_l'            => 'nullable|max:250',
+            'date_of_birth'     => 'required',
+            'id_card'           => 'nullable|max:190|unique:employees,id_card',
+            'nid'               => 'required|unique:employees,nid|unique:employees,nid',
+
+            'employee_id'       => 'required|max:190|unique:employees,employee_id',
+            'joining_date'      => 'required',
+            'department'        => 'required|exists:departments,id',
+            'designation'       => 'required|exists:designations,id',
+
+            'basic_salary'      =>  'required|numeric|between:1,999999999.99',
+
+            'opening_balance'   =>  'required|numeric|between:-999999999.99,999999999.99',
+
+            'phone'             => 'required|max:190|unique:employees,phone',
+            'phone_alt'         => 'nullable|max:190',
+            'email'             => 'nullable|max:190|email|unique:employees,email',
+            'email_office'      => 'nullable|max:190',
+            'address'           => 'nullable|max:65500',
+        ]);
+    }
+
+    public function isValidEmployeeHistory(Request $request)
+    {
+        return Validator::make($request->all(), [
+            'employee_id'       =>  'required|max:190|exists:employees,id',
+
+            'is_fired'          =>  'required|in:0,1',
+            'is_resigned'       =>  'required|in:0,1',
+            'is_promoted'       =>  'required|in:0,1',
+            
+            'department'        => (!$request->is_fired && !$request->is_resigned) ? 'required|exists:departments,id' : 'nullable',
+            'designation'       => (!$request->is_fired && !$request->is_resigned) ? 'required|exists:designations,id' : 'nullable',
+
+            'basic_salary'      =>  ((!$request->is_fired && !$request->is_resigned) &&
+                                    ($request->is_promoted)) 
+                                    ? 'required|numeric|between:1,999999999.99' : 'nullable',
+
+            'joining_date'      => ((!$request->is_fired && !$request->is_resigned) &&
+                                    ($request->is_promoted)) 
+                                    ? 'required' : 'nullable' ,
+            'last_working_date' => 'required',
+            'comment'           => 'nullable|max:65500',
+        ]);
+    }
 }
