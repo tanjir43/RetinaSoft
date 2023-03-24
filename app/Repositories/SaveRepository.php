@@ -410,32 +410,31 @@ class SaveRepository {
     {
         $user = Auth::user()->id;
         $id = $request->id;
-
         if (!empty($id)) {
             $info = Employee::with('appointment')->withTrashed()->find($id);
             $totalEmployeeHistory = EmployeeHistory::where('employee_id',$id)->count();
-
+            
             if (!empty($info)){
                 $appointment_id = $info->appointment->id;
-
+                
                 $info->employee_id      =   $request->employee_id;
                 $info->name             =   $request->name;
                 $info->name_l           =   $request->name_l;
-                $info->dob              =   date('Y-m-d',strtotime($request->date_of_birth));
-                $info->id_card          =   $request->id_card;
+                $info->dob              =   date('Y-m-d',strtotime($request->dob));
+                #$info->id_card          =   $request->id_card;
                 $info->nid              =   $request->nid;
-        
+                
                 if ($totalEmployeeHistory <= 1) {
                     $info->department_id    =   $request->department;
                     $info->designation_id   =   $request->designation;
                 }
-        
+                
                 $info->phone            =   $request->phone;
                 $info->phone_alt        =   $request->phone_alt;
                 $info->email            =   $request->email;
                 $info->email_office     =   $request->email_office;
                 $info->address          =   $request->address;
-        
+                
                 if ($info->opening_balance > $request->opening_balance) {
                     $change = $request->opening_balance - $info->opening_balance;
                     $info->balance      +=   $change;
@@ -446,18 +445,17 @@ class SaveRepository {
                 }
                 $info->opening_balance  =   $request->opening_balance;
                 $info->updated_by   =   $user;
-        
+                
                 DB::beginTransaction();
                 try {
                     $info->save();
                     EmployeeHistory::where('id',$appointment_id)
                     ->update([
-                        'branch_id'         =>  $request->branch,
                         'department_id'     =>  $request->department,
                         'designation_id'    =>  $request->designation,
-        
+                        
                         'basic_salary'      =>  $request->basic_salary,
-        
+                        
                         'joining_date'      =>  date('Y-m-d',strtotime($request->joining_date)),
                         'updated_by'        =>  $user
                     ]);
@@ -477,8 +475,8 @@ class SaveRepository {
             'employee_id'       =>  $request->employee_id,
             'name'              =>  $request->name,
             'name_l'            =>  $request->name_l,
-            'dob'               =>  date('Y-m-d',strtotime($request->date_of_birth)),
-            'id_card'           =>  $request->id_card,
+            'dob'               =>  date('Y-m-d',strtotime($request->dob)),
+            #'id_card'           =>  $request->id_card,
             'nid'               =>  $request->nid,
 
             'department_id'     =>  $request->department,
@@ -499,19 +497,20 @@ class SaveRepository {
         $joining_data = [
             'department_id'     =>  $request->department,
             'designation_id'    =>  $request->designation,
-
+            
             'basic_salary'      =>  $request->basic_salary,
 
             'status'            =>  'join',
             'joining_date'      =>  date('Y-m-d',strtotime($request->joining_date)),
             'created_by'        =>  $user
         ];
-
+        
         DB::beginTransaction();
         try {
             $employee = Employee::create($data);
             $joining_data['employee_id']    =   $employee->id;
             EmployeeHistory::create($joining_data);
+            #dd($employee);
             DB::commit();
             return 'success';
         } catch (Exception $e) {

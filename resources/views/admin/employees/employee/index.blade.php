@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
 @endsection
 
 <?php 
@@ -56,20 +57,20 @@ foreach($designations as $designation){
                                             ];
                                         ?>
                                         {!! Form::label('employee_id', __('msg.employee_id')) !!} <span class="text-danger">*</span>
-                                        {!! Form::text('employee_id',$record->name ?? old('employee_id'),$attr) !!}
+                                        {!! Form::text('employee_id',$record->employee_id ?? old('employee_id'),$attr) !!}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        {!! Form::label('joining_date',__('msg.joining_date')) !!}<span class="text-danger">*</span>
                                         <?php
                                             $attr = [
-                                                'id'        => 'name',
-                                                'class'     => 'form-control',
-                                                'required'  => 'required',
+                                                'class'         =>  'form-control',
+                                                'readonly'      =>  'readonly',
+                                                'id'            =>  'joining_date',
                                             ];
                                         ?>
-                                        {!! Form::label('name', __('msg.name')) !!} <span class="text-danger">*</span>
-                                        {!! Form::text('name',$record->name ?? old('name'),$attr) !!}
+                                        {!! Form::text('joining_date',$record->joining_date ?? old('joining_date'),$attr) !!}
                                     </div>
                                 </div>
                             </div>
@@ -108,13 +109,13 @@ foreach($designations as $designation){
                                     <div class="form-group">
                                         <?php
                                             $attr = [
-                                                'id'        => 'salary',
+                                                'id'        => 'basic_salary',
                                                 'class'     => 'form-control',
                                                 'required'  => 'required',
                                             ];
                                         ?>
-                                        {!! Form::label('salary', __('msg.salary')) !!} <span class="text-danger">*</span>
-                                        {!! Form::number('salary',$record->name ?? old('salary'),$attr) !!}
+                                        {!! Form::label('basic_salary', __('msg.salary')) !!} <span class="text-danger">*</span>
+                                        {!! Form::number('basic_salary',$record->basic_salary ?? old('basic_salary'),$attr) !!}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -130,9 +131,123 @@ foreach($designations as $designation){
                                         {!! Form::number('opening_balance',$record->opening_balance ?? old('opening_balance'),$attr) !!}
                                     </div>
                                 </div>
+                                <hr class="mt-2">
                             </div>
-                           
-                            
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php
+                                            $attr = [
+                                                'id'        => 'name',
+                                                'class'     => 'form-control',
+                                                'required'  => 'required',
+                                            ];
+                                        ?>
+                                        {!! Form::label('name', __('msg.name')) !!} <span class="text-danger">*</span>
+                                        {!! Form::text('name',$record->name ?? old('name'),$attr) !!}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php
+                                            $attr = [
+                                                'id'        => 'name_l',
+                                                'class'     => 'form-control',
+                                            ];
+                                        ?>
+                                        {!! Form::label('name_l', __('msg.name_l')) !!} <span class="text-danger">*</span>
+                                        {!! Form::text('name_l',$record->name ?? old('name_l'),$attr) !!}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php
+                                            $attr = [
+                                                'id'        => 'nid',
+                                                'class'     => 'form-control',
+                                                'required'  => 'required',
+                                            ];
+                                        ?>
+                                        {!! Form::label('nid', __('msg.nid')) !!} <span class="text-danger">*</span>
+                                        {!! Form::text('nid',$record->nid ?? old('nid'),$attr) !!}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {!! Form::label('dob',__('msg.dob')) !!}<span class="text-danger">*</span>
+                                        <?php
+                                            $attr = [
+                                                'class'         =>  'form-control',
+                                                'readonly'      =>  'readonly',
+                                                'id'            =>  'date_of_birth',
+                                            ];
+                                        ?>
+                                        {!! Form::text('dob',$record->dob ?? old('dob'),$attr) !!}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php 
+                                            $attr = [
+                                                'id'            => 'email',
+                                                'placeholder'   => 'johndoe@gmail.com',
+                                                'class'         => 'form-control',
+                                            ];
+                                        ?>
+                                        {!! Form::label('email', __('msg.email')) !!}
+                                        {!! Form::email('email',$record->email ?? old('email'),$attr) !!}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php 
+                                            $attr = [
+                                                'id'            => 'email_office',
+                                                'placeholder'   => 'johndoeoffice@gmail.com',
+                                                'class'         => 'form-control',
+                                            ];
+                                        ?>
+                                        {!! Form::label('email_office', __('msg.office_email')) !!}
+                                        {!! Form::email('email_office',$record->email_office ?? old('email_office'),$attr) !!}
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php 
+                                            $attr = [
+                                                'id'            => 'phone',
+                                                'class'         => 'form-control',
+                                            ];
+                                        ?>
+                                        {!! Form::label('phone', __('msg.phone')) !!}
+                                        {!! Form::text('phone',$record->phone ?? old('phone'),$attr) !!}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php 
+                                            $attr = [
+                                                'id'            => 'phone_alt',
+                                                'class'         => 'form-control',
+                                            ];
+                                        ?>
+                                        {!! Form::label('phone_alt', __('msg.phone_alt')) !!}
+                                        {!! Form::text('phone_alt',$record->phone_alt ?? old('phone_alt'),$attr) !!}
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <?php
@@ -142,119 +257,6 @@ foreach($designations as $designation){
                                 ?>
                                 {!! Form::label('address', __('msg.address')) !!}
                                 {!! Form::textarea('address',$record->address ?? old('address'),$attr) !!}
-                            </div>
-
-                            <div class="form-group">
-                                <?php 
-                                    $attr = [
-                                        'id'            => 'email',
-                                        'placeholder'   => 'johndoe@gmail.com',
-                                        'class'         => 'form-control',
-                                    ];
-                                ?>
-                                {!! Form::label('email', __('msg.email')) !!}
-                                {!! Form::email('email',$record->email ?? old('email'),$attr) !!}
-                            </div>
-
-                            <div class="form-group">
-                                <?php 
-                                    $attr = [
-                                        'id'            => 'phone',
-                                        'class'         => 'form-control',
-                                    ];
-                                ?>
-                                {!! Form::label('phone', __('msg.phone')) !!}
-                                {!! Form::text('phone',$record->phone ?? old('phone'),$attr) !!}
-                            
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <?php
-                                            $attr = [
-                                                'id'                => 'trade_license',
-                                                'class'             => 'form-control'
-                                            ];
-                                        ?>
-                                        {!! Form::label('trade_license', __('msg.trade_license')) !!}
-                                        {!! Form::text('trade_license',$record->trade_license ?? old('trade_license'),$attr) !!}
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        {!! Form::label('vat', __('msg.vat')) !!}
-                                        <div class="input-group">
-                                            <?php 
-                                                $attr = [
-                                                    'id'            => 'vat',
-                                                    'class'         => 'form-control',
-                                                    'min'           => 0,
-                                                    'max'           => 100,
-                                                ];
-                                                ?>
-                                            {!! Form::number('vat',$record->vat ?? old('vat'),$attr) !!}
-                                            <span class="input-group-text">
-                                                <i class="fa fa-percent"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <?php
-                                            $attr = [
-                                                'id'                => 'vat_area_code',
-                                                'class'             => 'form-control'
-                                            ];
-                                        ?>
-                                        {!! Form::label('vat_area_code', __('msg.vat_area_code')) !!}
-                                        {!! Form::text('vat_area_code',$record->vat_area_code ?? old('vat_area_code'),$attr) !!}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <?php
-                                            $attr = [
-                                                'id'                => 'mashuk_no',
-                                                'class'             => 'form-control'
-                                            ];
-                                        ?>
-                                        {!! Form::label('mashuk_no', __('msg.mashuk_no')) !!}
-                                        {!! Form::text('mashuk_no',$record->mashuk_no ?? old('mashuk_no'),$attr) !!}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <?php
-                                            $attr = [
-                                                'id'                => 'tin',
-                                                'class'             => 'form-control'
-                                            ];
-                                        ?>
-                                        {!! Form::label('tin', __('msg.tin')) !!}
-                                        {!! Form::text('tin',$record->tin ?? old('tin'),$attr) !!}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <?php
-                                            $attr = [
-                                                'id'                => 'registration_no',
-                                                'class'             => 'form-control'
-                                            ];
-                                        ?>
-                                        {!! Form::label('registration_no', __('msg.registration_no')) !!}
-                                        {!! Form::text('registration_no',$record->registration_no ?? old('registration_no'),$attr) !!}
-                                    </div>
-                                </div>
                             </div>
 
                             <x-slot name="footer">
@@ -270,8 +272,9 @@ foreach($designations as $designation){
 
 
 @section('js')
- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
 <script>
     const address = $('#address');
     address.summernote({
@@ -303,5 +306,16 @@ foreach($designations as $designation){
             ]
         });
     });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('#joining_date').flatpickr({
+            enableTime: false
+        });
+        $('#date_of_birth').flatpickr({
+            enableTime: false
+        });
+    })
 </script>
 @endsection

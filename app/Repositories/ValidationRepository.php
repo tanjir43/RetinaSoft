@@ -96,7 +96,7 @@ class ValidationRepository
             return Validator::make($request->all(), [
                 'name'              => 'required|max:250',
                 'name_l'            => 'nullable|max:250',
-                'date_of_birth'     => 'required',
+                #'date_of_birth'     => 'required',
                 'id_card'           => 'nullable|max:190|unique:employees,id_card,'.$id,
                 'nid'               => 'required|unique:employees,nid|unique:employees,nid'.$id,
 
@@ -118,7 +118,7 @@ class ValidationRepository
         return Validator::make($request->all(), [
             'name'              => 'required|max:250',
             'name_l'            => 'nullable|max:250',
-            'date_of_birth'     => 'required',
+            #'date_of_birth'     => 'required',
             'id_card'           => 'nullable|max:190|unique:employees,id_card',
             'nid'               => 'required|unique:employees,nid|unique:employees,nid',
 

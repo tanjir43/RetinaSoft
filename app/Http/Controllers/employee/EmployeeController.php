@@ -31,7 +31,7 @@ class EmployeeController extends Controller
     public function save(Request $request, $id = null)
     {
         $this->vr->isValidEmployee($request,$id);
-
+        
         $status = $this->save->Employee($request,$id);
 
         if ($status == 'success') {
@@ -125,20 +125,19 @@ class EmployeeController extends Controller
                 return $html;
             })
             ->addColumn('action', function ($data) {
-                $edit_url = route('company.edit', $data->id);
-                $block = route('company.block', $data->id);
-                $unblock = route('company.unblock', $data->id);
+                $edit_url = route('employee.edit', $data->id);
+                // $block = route('company.block', $data->id);
+                // $unblock = route('company.unblock', $data->id);
 
                 $html = '<div class="text-center">';
 
-                    if (empty($data->deleted_at)) {
-                        $html .= '<a  href="' . $edit_url . '">' . '<i class="fas fa-edit"></i>' . '</a>';
-                 
-                            $html .= '<a onclick="return confirm(\'' . __('msg.block_this_company?') . ' \')" href="' . $block . '">' .'<span style="margin-left:10px;"><i class="fas fa-lock  text-danger"></i></span>' . '</a>'  ;
-                       
+                $html .= '<a  href="' . $edit_url . '">' . '<i class="fas fa-edit"></i>' . '</a>';
+                
+                /* if (empty($data->deleted_at)) {
+                            $html .= '<a onclick="return confirm(\'' . __('msg.block_this_company?') . ' \')" href="' . $block . '">' .'<span style="margin-left:10px;"><i class="fas fa-lock  text-danger"></i></span>' . '</a>'  ;   
                     } else {
                         $html .= '<a onclick="return confirm(\'' . __('msg.unblock_this_company?') . ' \')" href="' . $unblock . '">' . '<i class="fas fa-unlock text-success"></i>' . '</a>';
-                    }
+                    } */
                
                 $html .= '</ul></div>';
                 return $html; 
@@ -146,4 +145,17 @@ class EmployeeController extends Controller
             ->rawColumns(['name', 'deleted_at', 'created_at', 'information', 'action'])
             ->make(true);
     } 
+
+    public function edit($id)
+    {
+        #dd($id);
+        $record = Employee::with('media','department','designation','salary')
+                    ->with('appointment',function ($q)
+                    {
+                        $q->with('department','designation');
+                    })->firstOrFail();
+        $departments  = Department::all();
+        $designations = Designation::all();   
+        return view('admin.employees.employee.index',compact(['record','departments','designations']));
+    }
 }
