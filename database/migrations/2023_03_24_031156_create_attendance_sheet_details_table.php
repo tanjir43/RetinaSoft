@@ -20,8 +20,8 @@ return new class extends Migration
             #$table->float('absent_days',12,2)->default(0);
             #$table->float('annual_days',12,2)->default(0);
             #$table->float('sick_days',12,2)->default(0);
-            $table->string('in_time')->nullable();
-            $table->string('out_time')->nullable();
+            $table->date('in_time')->nullable();
+            $table->date('out_time')->nullable();
             $table->timestamps();
         });
     }

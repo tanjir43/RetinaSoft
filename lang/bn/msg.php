@@ -210,6 +210,7 @@ return [
     'holiday'                       =>  'ছুটি ',
     'holiday_info'                  =>  'ছুটির তথ্য ',
     #i
+    'in_time'                       =>  'সময়ের মধ্যে ',
     'income_expense'                =>  'আয় এবং খরচ ',
     'items'                         =>  'আইটেম ',
     'income'                        =>  'আয় ',   

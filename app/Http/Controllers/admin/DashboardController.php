@@ -12,7 +12,7 @@ class DashboardController extends Controller
     {
         $role = Auth::user()->role;
         session()->put('role',strtolower($role));
-        if($role->id != 7){
+        if($role->id != 3){
             return view('dashboard');
         }
         else{

@@ -74,10 +74,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','B
     
     #attendance 
     Route::get('get-attendance-sheet', 'employee\AttendanceController@index')->name('attendance-sheet');
-    Route::get('new-attendance-sheet', 'employee\AttendanceController@create');
-    Route::post('save-attendance-sheet', 'employee\AttendanceController@store');
-    Route::post('delete-attendance', 'employee\AttendanceController@delete');
-
+    Route::get('attendance-datatable', 'employee\AttendanceController@datatable')->name('attendance.datatable');
+    Route::post('save-attendance/{id?}', 'employee\AttendanceController@save')->name('attendance.save');
+    Route::get('attendance-edit/{id}', 'employee\AttendanceController@edit')->name('attendance.edit');
+    Route::get('block-attendance/{id}', 'employee\AttendanceController@block')->name('attendance.block');
+    Route::get('unblock-attendance/{id}', 'employee\AttendanceController@unblock')->name('attendance.unblock');
+    
 
     Route::get('/branch', function () {
         return "branch";

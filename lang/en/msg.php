@@ -215,6 +215,7 @@ return [
     'holiday_info'                  =>  'Holiday Information ',
     
     #i
+    'in_time'                       =>  'In Time ',
     'income_expense'                =>  'Income And Expense ',
     'items'                         =>  'Items',
     'income'                        =>  'Income ',
@@ -307,6 +308,7 @@ return [
     'name_l'                        =>  'Name (Bangla) ',//'Name (Local) '
 
     #o
+    'out_time'                      =>  'Out Time ',
     'organization'                  =>  'Organization ',
     "organizations"                 =>  'Organizations ',
     'others'                        =>  'Others ',
